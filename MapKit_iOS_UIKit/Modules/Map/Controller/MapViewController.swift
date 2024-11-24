@@ -8,10 +8,30 @@
 import UIKit
 
 class MapViewController: BaseViewController {
+	private lazy var searchController = makeSearchController()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		_ = searchController
+		navigationController?.navigationBar.prefersLargeTitles = true
+	}
+	
+	func makeSearchController() -> UISearchController {
+		let searchController = UISearchController(
+			searchResultsController: MapViewController
+				.get(viewModel: MapViewModel(title: "Address List")))
 		
+		let searchBar = searchController.searchBar
+		searchBar.sizeToFit()
+		searchBar.placeholder = "Search"
+		searchBar.searchTextField.leftView?.tintColor = UIColor.systemGray
+		searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: [.foregroundColor: UIColor.systemGray])
+		
+		navigationItem.titleView = searchController.searchBar
+		
+		searchController.hidesNavigationBarDuringPresentation = false
+		definesPresentationContext = true
+		return searchController
 	}
 }
 
