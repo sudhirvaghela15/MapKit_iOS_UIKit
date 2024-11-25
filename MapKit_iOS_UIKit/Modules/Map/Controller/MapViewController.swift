@@ -12,11 +12,14 @@ class MapViewController: BaseViewController {
 	
 	@IBOutlet weak var mapView: MKMapView!
 	
+	private lazy var searchController = makeSearchController()
+	
 	private let locationManager = CLLocationManager()
 	private var shouldUpdateLocation = true
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		 _ = searchController
 		self.mapView.delegate = self
 		self.setupLocationManager()
 		let status = locationManager.authorizationStatus
@@ -89,4 +92,22 @@ extension MapViewController {
 		}
 		return view
 	}
+	
+	func makeSearchController() -> UISearchController {
+			let searchController = UISearchController(
+				searchResultsController: MapViewController
+					.get(viewModel: MapViewModel(title: "Address List")))
+			
+			let searchBar = searchController.searchBar
+			searchBar.sizeToFit()
+			searchBar.placeholder = "Search"
+			searchBar.searchTextField.leftView?.tintColor = UIColor.systemGray
+			searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: [.foregroundColor: UIColor.systemGray])
+			
+			navigationItem.titleView = searchController.searchBar
+			
+			searchController.hidesNavigationBarDuringPresentation = false
+			definesPresentationContext = true
+			return searchController
+		}
 }
