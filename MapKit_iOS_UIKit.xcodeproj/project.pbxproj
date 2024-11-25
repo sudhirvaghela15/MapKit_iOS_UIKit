@@ -18,6 +18,9 @@
 		F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE732CF340D40004EF05 /* MapViewModel.swift */; };
 		F2A8EE762CF343390004EF05 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EE752CF343390004EF05 /* Map.storyboard */; };
 		F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */; };
+		F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */; };
+		F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */; };
+		F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		F2A8EE732CF340D40004EF05 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		F2A8EE752CF343390004EF05 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+EXT.swift"; sourceTree = "<group>"; };
+		F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCPlacemark.swift; sourceTree = "<group>"; };
+		F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,8 @@
 		F2A8EE592CF33D8F0004EF05 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D.swift */,
+				F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */,
+				F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -278,11 +287,14 @@
 			files = (
 				F2A8EE702CF33F340004EF05 /* BoxBind.swift in Sources */,
 				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
+				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,
 				F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */,
 				F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */,
 				F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */,
 				F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */,
+				F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */,
 				F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */,
+				F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D.swift in Sources */,
 				F2A8EE672CF33D8F0004EF05 /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,9 +335,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sudhir.MapKit-iOS-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -351,9 +367,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sudhir.MapKit-iOS-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
