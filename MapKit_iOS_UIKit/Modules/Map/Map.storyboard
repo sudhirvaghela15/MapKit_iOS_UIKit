@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,9 +17,24 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJG-eV-tSB">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tJG-eV-tSB" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="05g-fM-wbj"/>
+                            <constraint firstAttribute="bottom" secondItem="tJG-eV-tSB" secondAttribute="bottom" id="8gb-US-Wmg"/>
+                            <constraint firstItem="tJG-eV-tSB" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="cmI-Dp-OQk"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJG-eV-tSB" secondAttribute="trailing" id="n3l-8G-lK0"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="tJG-eV-tSB" id="OdK-Iv-s6B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

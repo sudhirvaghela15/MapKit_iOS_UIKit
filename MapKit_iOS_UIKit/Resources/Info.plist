@@ -19,5 +19,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>need location </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>need location </string>
 </dict>
 </plist>
