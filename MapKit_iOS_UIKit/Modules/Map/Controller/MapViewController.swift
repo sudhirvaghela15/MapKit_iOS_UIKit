@@ -13,6 +13,7 @@ class MapViewController: BaseViewController {
 	@IBOutlet weak var mapView: MKMapView!
 	
 	private lazy var searchController = makeSearchController()
+	private lazy var addressResultTableViewController = AddressResultTableViewController.get()
 	
 	private let locationManager = CLLocationManager()
 	private var shouldUpdateLocation = true
@@ -92,11 +93,16 @@ extension MapViewController {
 		}
 		return view
 	}
-	
+}
+
+
+//MARK: - UISearchControllerDelegate
+extension MapViewController: UISearchControllerDelegate {
 	func makeSearchController() -> UISearchController {
 			let searchController = UISearchController(
-				searchResultsController: MapViewController
-					.get(viewModel: MapViewModel(title: "Address List")))
+				searchResultsController: addressResultTableViewController)
+			searchController.searchResultsUpdater = addressResultTableViewController
+			searchController.delegate = self
 			
 			let searchBar = searchController.searchBar
 			searchBar.sizeToFit()
@@ -108,6 +114,20 @@ extension MapViewController {
 			
 			searchController.hidesNavigationBarDuringPresentation = false
 			definesPresentationContext = true
+		
+			addressResultTableViewController.dataSource = { _ in
+				return self.mapView
+			}
+		
+//			addressResultTableViewController.favoritePlacemarks = { _ in
+//
+//			}
+			
+			addressResultTableViewController.selectPacemark = { [weak self] placemark in
+				searchController.searchBar.text = nil
+				searchController.searchBar.resignFirstResponder()
+			}
+		
 			return searchController
 		}
 }

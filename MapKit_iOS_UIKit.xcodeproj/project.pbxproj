@@ -21,6 +21,9 @@
 		F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */; };
 		F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */; };
 		F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D.swift */; };
+		F2A8EEF12CF4FB410004EF05 /* AddressResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */; };
+		F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */; };
+		F2A8EEF52CF4FCC30004EF05 /* AddressResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+EXT.swift"; sourceTree = "<group>"; };
 		F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCPlacemark.swift; sourceTree = "<group>"; };
 		F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResultTableViewController.swift; sourceTree = "<group>"; };
+		F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddressResult.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 		F2A8EE512CF33D8F0004EF05 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -167,6 +174,7 @@
 		F2A8EE5D2CF33D8F0004EF05 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F2A8EEF02CF4FB410004EF05 /* Address */,
 				F2A8EE572CF33D8F0004EF05 /* Base */,
 				F2A8EE5C2CF33D8F0004EF05 /* Map */,
 			);
@@ -209,6 +217,15 @@
 				F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F2A8EEF02CF4FB410004EF05 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */,
+				F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */,
+			);
+			path = Address;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A8EEF52CF4FCC30004EF05 /* AddressResult.storyboard in Resources */,
 				F2A8EE682CF33D8F0004EF05 /* Assets.xcassets in Resources */,
 				F2A8EE6A2CF33D8F0004EF05 /* LaunchScreen.storyboard in Resources */,
 				F2A8EE762CF343390004EF05 /* Map.storyboard in Resources */,
@@ -286,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2A8EE702CF33F340004EF05 /* BoxBind.swift in Sources */,
+				F2A8EEF12CF4FB410004EF05 /* AddressResultTableViewController.swift in Sources */,
 				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
 				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,
 				F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */,
@@ -294,6 +313,7 @@
 				F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */,
 				F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */,
 				F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */,
+				F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */,
 				F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D.swift in Sources */,
 				F2A8EE672CF33D8F0004EF05 /* ViewModel.swift in Sources */,
 			);
