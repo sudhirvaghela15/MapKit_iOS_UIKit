@@ -16,11 +16,10 @@ protocol ViewController  {
 // MARK: - Base View Controller
 import UIKit
 
-class BaseViewController: UIViewController, ViewController {
-	typealias Value = ViewModel
-	var viewModel: ViewModel
+class BaseViewController<VM: ViewModel>: UIViewController, ViewController {
+	var viewModel: VM
 	
-	init?(coder: NSCoder, viewModel: ViewModel) {
+	init?(coder: NSCoder, viewModel: VM) {
 		self.viewModel = viewModel
 		super.init(coder: coder)
 		debugPrint("init of ", String(describing: self))
@@ -43,7 +42,7 @@ class BaseViewController: UIViewController, ViewController {
 
 	func setupBindings() {
 		viewModel.isLoadingPublisher.bind { [weak self] isLoading in
-			
+			debugPrint("isLoading \(isLoading)")
 		}
 
 		viewModel.errorPublisher?.bind { [weak self] error in
