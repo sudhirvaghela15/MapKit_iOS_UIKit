@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: BaseViewController {
+class MapViewController: BaseViewController<MapViewModel> {
 	
 	@IBOutlet weak var mapView: MKMapView!
 	
@@ -82,7 +82,7 @@ extension MapViewController: CLLocationManagerDelegate {
 
 // MARK: - Factory Method
 extension MapViewController {
-	static func get(viewModel: ViewModel) -> UIViewController {
+	static func get(viewModel: Value) -> UIViewController {
 		let storyboard = UIStoryboard(
 			name: "Map",
 			bundle: Bundle.main
@@ -115,7 +115,7 @@ extension MapViewController: UISearchControllerDelegate {
 			searchController.hidesNavigationBarDuringPresentation = false
 			definesPresentationContext = true
 		
-			addressResultTableViewController.dataSource = { _ in
+			addressResultTableViewController.dataSource = { [unowned self] _ in
 				return self.mapView
 			}
 		
@@ -123,9 +123,10 @@ extension MapViewController: UISearchControllerDelegate {
 //
 //			}
 			
-			addressResultTableViewController.selectPacemark = { [weak self] placemark in
+			addressResultTableViewController.selectPacemark = { [unowned self] placemark in
 				searchController.searchBar.text = nil
 				searchController.searchBar.resignFirstResponder()
+				viewModel.add(placemark: placemark)
 			}
 		
 			return searchController
