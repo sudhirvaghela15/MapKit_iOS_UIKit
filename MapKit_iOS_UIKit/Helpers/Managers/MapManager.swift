@@ -28,3 +28,60 @@ extension MapMananger {
 		}
 	}
 }
+
+extension MapMananger {
+	
+	class func reverseCoordinate(_ coordinate: CLLocationCoordinate2D, completion: @escaping (_ result: Result<[MKPlacemark], Error>) -> ())  {
+		let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+		let geocoder = CLGeocoder()
+		geocoder.reverseGeocodeLocation(location) { (clPlacemarks, error) in
+			if let clPlacemarks = clPlacemarks {
+				let placemarks = clPlacemarks.map { (clPlacemark) -> MKPlacemark in
+					return MKPlacemark(placemark: clPlacemark)
+				}
+				completion(.success(placemarks))
+			}
+			
+			if let error = error {
+				completion(.failure(error))
+			}
+		}
+	}
+}
+
+extension MapMananger {
+	
+	class func boundingMapRect(polylines: [MKPolyline]) -> MKMapRect {
+		let westPoint = polylines.lazy.map{ $0.boundingMapRect.minX }.min() ?? 0
+		let northPoint = polylines.lazy.map{ $0.boundingMapRect.minY }.min() ?? 0
+		let eastPoint = polylines.lazy.map{ $0.boundingMapRect.maxX }.max() ?? 0
+		let southPoint = polylines.lazy.map{ $0.boundingMapRect.maxY }.max() ?? 0
+		
+		let origin = MKMapPoint(x: westPoint, y: northPoint)
+		let size = MKMapSize(width: eastPoint - westPoint, height: southPoint - northPoint)
+		return MKMapRect(origin: origin, size: size)
+	}
+}
+
+// MARK: - HYCPlacemark
+extension MapMananger {
+	
+	class func calculateDirections(from source: SCPlacemark, to destination: SCPlacemark, completion: @escaping (_ result: Result<MKDirections.Response, Error>) -> ()) {
+		let request = MKDirections.Request()
+		request.source = source.toMapItem
+		request.destination = destination.toMapItem
+		request.transportType = .automobile
+		
+		let directions = MKDirections(request: request)
+		directions.calculate { (response, error) in
+			if let response = response {
+				completion(.success(response))
+			}
+			
+			if let error = error {
+				completion(.failure(error))
+			}
+		}
+	}
+
+}

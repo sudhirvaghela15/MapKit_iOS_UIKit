@@ -25,6 +25,8 @@
 		F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */; };
 		F2A8EEF52CF4FCC30004EF05 /* AddressResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */; };
 		F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */; };
+		F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF82CF64FB60004EF05 /* DataManager.swift */; };
+		F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddressResult.storyboard; sourceTree = "<group>"; };
 		F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
+		F2A8EEF82CF64FB60004EF05 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		F2A8EE512CF33D8F0004EF05 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				F2A8EEF82CF64FB60004EF05 /* DataManager.swift */,
 				F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */,
 			);
 			path = Managers;
@@ -177,8 +182,8 @@
 		F2A8EE5D2CF33D8F0004EF05 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F2A8EEF02CF4FB410004EF05 /* Address */,
 				F2A8EE572CF33D8F0004EF05 /* Base */,
+				F2A8EEF02CF4FB410004EF05 /* Address */,
 				F2A8EE5C2CF33D8F0004EF05 /* Map */,
 			);
 			path = Modules;
@@ -216,6 +221,7 @@
 		F2A8EEE02CF34BF20004EF05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */,
 				F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */,
 				F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */,
 			);
@@ -307,6 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2A8EE702CF33F340004EF05 /* BoxBind.swift in Sources */,
+				F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */,
+				F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */,
 				F2A8EEF12CF4FB410004EF05 /* AddressResultTableViewController.swift in Sources */,
 				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
 				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,

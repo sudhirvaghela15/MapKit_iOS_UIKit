@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,24 +19,110 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJG-eV-tSB">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="D2j-CY-8Rg" appends="YES" id="FEa-U3-6wd"/>
+                                </connections>
                             </mapView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V2M-y2-0Q7">
+                                <rect key="frame" x="0.0" y="698" width="393" height="426"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4sD-tl-XYf">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="426"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KbD-L7-2Ph">
+                                            <rect key="frame" x="9" y="21" width="375" height="554"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EMB-Nq-01a">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <items/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="zhL-Va-kca" appends="YES" id="AWh-IM-WVH"/>
+                                                    </connections>
+                                                </toolbar>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UWO-dT-S9c">
+                                                    <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <prototypes>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="xnr-jq-qQe" detailTextLabel="Drv-L2-A4h" style="IBUITableViewCellStyleSubtitle" id="ayW-LP-Vsh">
+                                                            <rect key="frame" x="0.0" y="50" width="375" height="55.666667938232422"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ayW-LP-Vsh" id="Xow-Au-P8J">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="55.666667938232422"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xnr-jq-qQe">
+                                                                        <rect key="frame" x="20" y="8.9999999999999982" width="33" height="20.333333333333332"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Drv-L2-A4h">
+                                                                        <rect key="frame" x="19.999999999999996" y="31.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </tableViewCellContentView>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </tableViewCell>
+                                                    </prototypes>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="UWO-dT-S9c" secondAttribute="bottom" id="4by-LZ-4rC"/>
+                                                <constraint firstItem="UWO-dT-S9c" firstAttribute="leading" secondItem="KbD-L7-2Ph" secondAttribute="leading" id="7fJ-sP-0lA"/>
+                                                <constraint firstAttribute="trailing" secondItem="EMB-Nq-01a" secondAttribute="trailing" id="V6x-N3-uh7"/>
+                                                <constraint firstItem="EMB-Nq-01a" firstAttribute="top" secondItem="KbD-L7-2Ph" secondAttribute="top" id="WdP-gX-Itj"/>
+                                                <constraint firstAttribute="trailing" secondItem="UWO-dT-S9c" secondAttribute="trailing" id="d3W-NE-7Kr"/>
+                                                <constraint firstItem="UWO-dT-S9c" firstAttribute="top" secondItem="EMB-Nq-01a" secondAttribute="bottom" id="uAU-Tu-cgH"/>
+                                                <constraint firstItem="EMB-Nq-01a" firstAttribute="leading" secondItem="KbD-L7-2Ph" secondAttribute="leading" id="uGj-qB-YAK"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="tJG-eV-tSB" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="05g-fM-wbj"/>
-                            <constraint firstAttribute="bottom" secondItem="tJG-eV-tSB" secondAttribute="bottom" id="8gb-US-Wmg"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJG-eV-tSB" secondAttribute="bottom" id="8gb-US-Wmg"/>
+                            <constraint firstItem="V2M-y2-0Q7" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.5" id="8mc-oh-UPN"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="V2M-y2-0Q7" secondAttribute="trailing" id="Bdp-Xa-EMh"/>
+                            <constraint firstItem="V2M-y2-0Q7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="OyJ-ZP-Rvl"/>
+                            <constraint firstItem="V2M-y2-0Q7" firstAttribute="top" secondItem="tJG-eV-tSB" secondAttribute="bottom" constant="-120" id="T54-lO-phS"/>
                             <constraint firstItem="tJG-eV-tSB" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="cmI-Dp-OQk"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJG-eV-tSB" secondAttribute="trailing" id="n3l-8G-lK0"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="barButtonItemDone" destination="pPY-KV-LRX" id="3oT-sW-JhP"/>
+                        <outlet property="barButtonItemEdit" destination="sUS-b1-Lyl" id="4lq-Ed-dC0"/>
+                        <outlet property="constriantOfMovableViewHeight" destination="8mc-oh-UPN" id="SOr-0Q-mtt"/>
                         <outlet property="mapView" destination="tJG-eV-tSB" id="OdK-Iv-s6B"/>
+                        <outlet property="movableView" destination="V2M-y2-0Q7" id="PTF-Ye-4lt"/>
+                        <outlet property="movableViewTopToMapViewBottom" destination="T54-lO-phS" id="aOs-zX-FZy"/>
+                        <outlet property="tableView" destination="UWO-dT-S9c" id="BfO-kQ-eeE"/>
+                        <outlet property="toolbar" destination="EMB-Nq-01a" id="cil-Jp-gnw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <barButtonItem style="plain" systemItem="done" id="pPY-KV-LRX"/>
+                <barButtonItem style="plain" systemItem="done" id="sUS-b1-Lyl" userLabel="Edit"/>
+                <tapGestureRecognizer id="D2j-CY-8Rg"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="zhL-Va-kca">
+                    <connections>
+                        <action selector="panGestureRecognizerDidPressed:" destination="Y6W-OH-hqX" id="BJu-P9-Hn0"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="108" y="4"/>
         </scene>
