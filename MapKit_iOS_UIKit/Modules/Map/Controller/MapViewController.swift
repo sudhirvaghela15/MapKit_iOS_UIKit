@@ -205,9 +205,20 @@ extension MapViewController {
 			return newframe
 		}
 		segmentedControl.frame = frameOfSegmentedControl(frame: segmentedControl.frame, superframe: toolbar.frame)
+		let container = UIBarButtonItem(customView: segmentedControl)
 		let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let userTrackingBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
-		toolbar.setItems([leftBarButtonItem(), flexibleSpace, flexibleSpace, userTrackingBarButtonItem], animated: false)
+		toolbar
+			.setItems(
+				[
+					leftBarButtonItem(),
+					flexibleSpace,
+					container,
+					flexibleSpace,
+					userTrackingBarButtonItem
+				],
+				animated: false
+			)
 	}
 	
 	private func leftBarButtonItem() -> UIBarButtonItem {
