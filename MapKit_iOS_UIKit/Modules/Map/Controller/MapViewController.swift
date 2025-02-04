@@ -140,9 +140,9 @@ extension MapViewController: UISearchControllerDelegate {
 		let searchBar = searchController.searchBar
 		searchBar.sizeToFit()
 		searchBar.placeholder = "Search"
-		searchBar.searchTextField.leftView?.tintColor = UIColor.systemGray
-		searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: [.foregroundColor: UIColor.systemGray])
-		searchBar.searchTextField.backgroundColor = .systemBrown
+		searchBar.searchTextField.leftView?.tintColor = UIColor.label
+		searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: [.foregroundColor: UIColor.label])
+//		searchBar.searchTextField.backgroundColor = .systemBrown
 		navigationItem.titleView = searchController.searchBar
 		
 		searchController.hidesNavigationBarDuringPresentation = false
@@ -204,7 +204,7 @@ extension MapViewController {
 			newframe.size.width = superframe.width/2
 			return newframe
 		}
-		
+		segmentedControl.frame = frameOfSegmentedControl(frame: segmentedControl.frame, superframe: toolbar.frame)
 		let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let userTrackingBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
 		toolbar.setItems([leftBarButtonItem(), flexibleSpace, flexibleSpace, userTrackingBarButtonItem], animated: false)
