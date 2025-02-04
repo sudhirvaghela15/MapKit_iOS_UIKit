@@ -221,6 +221,10 @@ extension MapViewController {
 			)
 	}
 	
+	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+		let index = sender.selectedSegmentIndex
+	}
+	
 	private func leftBarButtonItem() -> UIBarButtonItem {
 		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
 	}

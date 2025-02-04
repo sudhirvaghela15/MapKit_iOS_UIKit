@@ -126,6 +126,9 @@
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
+                    <connections>
+                        <action selector="segmentedControlValueChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="6w2-Hw-Vgi"/>
+                    </connections>
                 </segmentedControl>
                 <tapGestureRecognizer id="D2j-CY-8Rg">
                     <connections>
