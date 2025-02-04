@@ -21,6 +21,13 @@ class MapViewController: BaseViewController<MapViewModel> {
 	@IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
 	@IBOutlet weak var toolbar: UIToolbar!
 	
+	@IBOutlet weak var segmentedControl: UISegmentedControl! {
+		didSet {
+			segmentedControl.setTitle("Distance", forSegmentAt: 0)
+			segmentedControl.setTitle("Time", forSegmentAt: 1)
+		}
+	}
+	
 	private let heightOfUnit: CGFloat = 44.0
 	private var switchOnConstantOfMovableView: CGFloat {
 		return -((mapView.bounds.height / 2) - heightOfUnit)

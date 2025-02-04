@@ -35,4 +35,3 @@ class BoxBind<T> {
 		self.listener?(value)
 	}
 }
-
