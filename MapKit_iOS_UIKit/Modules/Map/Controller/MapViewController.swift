@@ -135,7 +135,7 @@ extension MapViewController: UISearchControllerDelegate {
 		searchBar.placeholder = "Search"
 		searchBar.searchTextField.leftView?.tintColor = UIColor.systemGray
 		searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: [.foregroundColor: UIColor.systemGray])
-		
+		searchBar.searchTextField.backgroundColor = .systemBrown
 		navigationItem.titleView = searchController.searchBar
 		
 		searchController.hidesNavigationBarDuringPresentation = false
