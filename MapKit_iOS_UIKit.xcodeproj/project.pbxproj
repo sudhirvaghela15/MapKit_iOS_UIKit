@@ -28,6 +28,7 @@
 		F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF82CF64FB60004EF05 /* DataManager.swift */; };
 		F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */; };
 		F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F42D52933B00CE530F /* Array+Extension.swift */; };
+		F2F479F92D529E7A00CE530F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F82D529E7A00CE530F /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		F2A8EEF82CF64FB60004EF05 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 		F2F479F42D52933B00CE530F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		F2F479F82D529E7A00CE530F /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		F2A8EE522CF33D8F0004EF05 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F2F479F82D529E7A00CE530F /* Helper.swift */,
 				F2A8EEE02CF34BF20004EF05 /* Extensions */,
 				F2A8EE512CF33D8F0004EF05 /* Managers */,
 				F2A8EE6F2CF33F340004EF05 /* Binding */,
@@ -322,6 +325,7 @@
 				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
 				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,
 				F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */,
+				F2F479F92D529E7A00CE530F /* Helper.swift in Sources */,
 				F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */,
 				F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */,
 				F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */,
