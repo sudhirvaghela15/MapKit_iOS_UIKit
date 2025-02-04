@@ -204,7 +204,7 @@ extension MapViewController {
 	}
 	
 	private func leftBarButtonItem() -> UIBarButtonItem {
-		return tableView.isEditing ? barButtonItemDone:barButtonItemEdit
+		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
 	}
 	
 	func  magnetTableView() {

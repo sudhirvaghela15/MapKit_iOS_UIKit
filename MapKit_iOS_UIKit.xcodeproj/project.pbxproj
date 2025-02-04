@@ -27,6 +27,7 @@
 		F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */; };
 		F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF82CF64FB60004EF05 /* DataManager.swift */; };
 		F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */; };
+		F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F42D52933B00CE530F /* Array+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
 		F2A8EEF82CF64FB60004EF05 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
+		F2F479F42D52933B00CE530F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 		F2A8EEE02CF34BF20004EF05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F2F479F42D52933B00CE530F /* Array+Extension.swift */,
 				F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */,
 				F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */,
 				F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */,
@@ -323,6 +326,7 @@
 				F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */,
 				F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */,
 				F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */,
+				F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */,
 				F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */,
 				F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */,
 				F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */,
