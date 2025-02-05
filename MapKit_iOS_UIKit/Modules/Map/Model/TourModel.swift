@@ -1,3 +1,11 @@
+//
+//  TourModel.swift
+//  MapKit_iOS_UIKit
+//
+//  Created by sudhir on 05/02/25.
+//
+
+import MapKit.MKPlacemark
 
 struct TourModel: Codable {
 	
@@ -6,7 +14,7 @@ struct TourModel: Codable {
 
 extension TourModel {
 	
-	var destinations: [HYCPlacemark] {
+	var destinations: [SCPlacemark] {
 		return directions.map{ $0.destination }
 	}
 	
@@ -26,8 +34,8 @@ extension TourModel {
 	}
 	
 	var routeInformation: String {
-		let distance = String(format: "Distance".localized + ": %.2f " + "km".localized, distances/1000)
-		let time = String(format: "Time".localized + ": %.2f " + "min".localized, sumOfExpectedTravelTime/60)
+		let distance = String(format: "Distance" + ": %.2f " + "km", distances/1000)
+		let time = String(format: "Time" + ": %.2f " + "min", sumOfExpectedTravelTime/60)
 		
 		return distance + ", " + time
 	}
