@@ -6,30 +6,57 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */; };
+		F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */; };
+		F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE532CF33D8F0004EF05 /* ViewController.swift */; };
+		F2A8EE672CF33D8F0004EF05 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE552CF33D8F0004EF05 /* ViewModel.swift */; };
+		F2A8EE682CF33D8F0004EF05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EE5E2CF33D8F0004EF05 /* Assets.xcassets */; };
+		F2A8EE6A2CF33D8F0004EF05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EE612CF33D8F0004EF05 /* LaunchScreen.storyboard */; };
+		F2A8EE702CF33F340004EF05 /* BoxBind.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE6E2CF33F340004EF05 /* BoxBind.swift */; };
+		F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE712CF340B80004EF05 /* MapViewController.swift */; };
+		F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE732CF340D40004EF05 /* MapViewModel.swift */; };
+		F2A8EE762CF343390004EF05 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EE752CF343390004EF05 /* Map.storyboard */; };
+		F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */; };
+		F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */; };
+		F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */; };
+		F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift */; };
+		F2A8EEF12CF4FB410004EF05 /* AddressResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */; };
+		F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */; };
+		F2A8EEF52CF4FCC30004EF05 /* AddressResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */; };
+		F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */; };
+		F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF82CF64FB60004EF05 /* DataManager.swift */; };
+		F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */; };
+		F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F42D52933B00CE530F /* Array+Extension.swift */; };
+		F2F479F92D529E7A00CE530F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F82D529E7A00CE530F /* Helper.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F2A8EDA62CF3238F0004EF05 /* MapKit_iOS_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKit_iOS_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F2A8EE532CF33D8F0004EF05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F2A8EE552CF33D8F0004EF05 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		F2A8EE5E2CF33D8F0004EF05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2A8EE5F2CF33D8F0004EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2A8EE602CF33D8F0004EF05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F2A8EE6E2CF33F340004EF05 /* BoxBind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxBind.swift; sourceTree = "<group>"; };
+		F2A8EE712CF340B80004EF05 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F2A8EE732CF340D40004EF05 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F2A8EE752CF343390004EF05 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+EXT.swift"; sourceTree = "<group>"; };
+		F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCPlacemark.swift; sourceTree = "<group>"; };
+		F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D + Extension.swift"; sourceTree = "<group>"; };
+		F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResultTableViewController.swift; sourceTree = "<group>"; };
+		F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddressResult.storyboard; sourceTree = "<group>"; };
+		F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
+		F2A8EEF82CF64FB60004EF05 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
+		F2F479F42D52933B00CE530F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		F2F479F82D529E7A00CE530F /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F2A8EDB82CF323900004EF05 /* Exceptions for "MapKit_iOS_UIKit" folder in "MapKit_iOS_UIKit" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/Info.plist,
-			);
-			target = F2A8EDA52CF3238F0004EF05 /* MapKit_iOS_UIKit */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F2A8EDA82CF3238F0004EF05 /* MapKit_iOS_UIKit */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F2A8EDB82CF323900004EF05 /* Exceptions for "MapKit_iOS_UIKit" folder in "MapKit_iOS_UIKit" target */,
-			);
-			path = MapKit_iOS_UIKit;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F2A8EDA32CF3238F0004EF05 /* Frameworks */ = {
@@ -45,7 +72,7 @@
 		F2A8ED9D2CF3238F0004EF05 = {
 			isa = PBXGroup;
 			children = (
-				F2A8EDA82CF3238F0004EF05 /* MapKit_iOS_UIKit */,
+				F2A8EE632CF33D8F0004EF05 /* MapKit_iOS_UIKit */,
 				F2A8EDA72CF3238F0004EF05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +83,164 @@
 				F2A8EDA62CF3238F0004EF05 /* MapKit_iOS_UIKit.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F2A8EE502CF33D8F0004EF05 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */,
+				F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F2A8EE512CF33D8F0004EF05 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EEF82CF64FB60004EF05 /* DataManager.swift */,
+				F2A8EEF22CF4FB9B0004EF05 /* MapManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F2A8EE522CF33D8F0004EF05 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F2F479F82D529E7A00CE530F /* Helper.swift */,
+				F2A8EEE02CF34BF20004EF05 /* Extensions */,
+				F2A8EE512CF33D8F0004EF05 /* Managers */,
+				F2A8EE6F2CF33F340004EF05 /* Binding */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F2A8EE542CF33D8F0004EF05 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE532CF33D8F0004EF05 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F2A8EE562CF33D8F0004EF05 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE552CF33D8F0004EF05 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F2A8EE572CF33D8F0004EF05 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE542CF33D8F0004EF05 /* Controller */,
+				F2A8EE562CF33D8F0004EF05 /* ViewModel */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		F2A8EE582CF33D8F0004EF05 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE712CF340B80004EF05 /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F2A8EE592CF33D8F0004EF05 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */,
+				F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F2A8EE5A2CF33D8F0004EF05 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F2A8EE5B2CF33D8F0004EF05 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE732CF340D40004EF05 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F2A8EE5C2CF33D8F0004EF05 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE752CF343390004EF05 /* Map.storyboard */,
+				F2A8EE582CF33D8F0004EF05 /* Controller */,
+				F2A8EE592CF33D8F0004EF05 /* Model */,
+				F2A8EE5A2CF33D8F0004EF05 /* View */,
+				F2A8EE5B2CF33D8F0004EF05 /* ViewModel */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F2A8EE5D2CF33D8F0004EF05 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE572CF33D8F0004EF05 /* Base */,
+				F2A8EEF02CF4FB410004EF05 /* Address */,
+				F2A8EE5C2CF33D8F0004EF05 /* Map */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		F2A8EE622CF33D8F0004EF05 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE5E2CF33D8F0004EF05 /* Assets.xcassets */,
+				F2A8EE5F2CF33D8F0004EF05 /* Info.plist */,
+				F2A8EE612CF33D8F0004EF05 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F2A8EE632CF33D8F0004EF05 /* MapKit_iOS_UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE502CF33D8F0004EF05 /* App */,
+				F2A8EE5D2CF33D8F0004EF05 /* Modules */,
+				F2A8EE522CF33D8F0004EF05 /* Helpers */,
+				F2A8EE622CF33D8F0004EF05 /* Resources */,
+			);
+			path = MapKit_iOS_UIKit;
+			sourceTree = "<group>";
+		};
+		F2A8EE6F2CF33F340004EF05 /* Binding */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EE6E2CF33F340004EF05 /* BoxBind.swift */,
+			);
+			path = Binding;
+			sourceTree = "<group>";
+		};
+		F2A8EEE02CF34BF20004EF05 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EEEA2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift */,
+				F2F479F42D52933B00CE530F /* Array+Extension.swift */,
+				F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */,
+				F2A8EEDF2CF34BF20004EF05 /* UIStoryboard+Extension.swift */,
+				F2A8EEE62CF364900004EF05 /* NSObject+EXT.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F2A8EEF02CF4FB410004EF05 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				F2A8EEEF2CF4FB410004EF05 /* AddressResultTableViewController.swift */,
+				F2A8EEF42CF4FCC30004EF05 /* AddressResult.storyboard */,
+			);
+			path = Address;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -72,9 +257,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				F2A8EDA82CF3238F0004EF05 /* MapKit_iOS_UIKit */,
 			);
 			name = MapKit_iOS_UIKit;
 			packageProductDependencies = (
@@ -122,6 +304,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A8EEF52CF4FCC30004EF05 /* AddressResult.storyboard in Resources */,
+				F2A8EE682CF33D8F0004EF05 /* Assets.xcassets in Resources */,
+				F2A8EE6A2CF33D8F0004EF05 /* LaunchScreen.storyboard in Resources */,
+				F2A8EE762CF343390004EF05 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,10 +318,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A8EE702CF33F340004EF05 /* BoxBind.swift in Sources */,
+				F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */,
+				F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */,
+				F2A8EEF12CF4FB410004EF05 /* AddressResultTableViewController.swift in Sources */,
+				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
+				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,
+				F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */,
+				F2F479F92D529E7A00CE530F /* Helper.swift in Sources */,
+				F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */,
+				F2A8EE742CF340D40004EF05 /* MapViewModel.swift in Sources */,
+				F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */,
+				F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */,
+				F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */,
+				F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */,
+				F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */,
+				F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */,
+				F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift in Sources */,
+				F2A8EE672CF33D8F0004EF05 /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F2A8EE612CF33D8F0004EF05 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2A8EE602CF33D8F0004EF05 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F2A8EDBA2CF323900004EF05 /* Debug */ = {
@@ -152,6 +367,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -159,9 +375,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sudhir.MapKit-iOS-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -179,6 +399,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -186,9 +407,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sudhir.MapKit-iOS-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
