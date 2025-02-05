@@ -222,7 +222,8 @@ extension MapViewController {
 	}
 	
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-		let index = sender.selectedSegmentIndex
+		let index = cprint(sender.selectedSegmentIndex)
+		
 	}
 	
 	private func leftBarButtonItem() -> UIBarButtonItem {
