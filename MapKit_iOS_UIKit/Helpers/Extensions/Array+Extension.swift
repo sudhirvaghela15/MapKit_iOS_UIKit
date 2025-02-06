@@ -14,6 +14,9 @@ extension Array {
         return (first, Array(self[1..<count]))
     }
 	
+	///
+	/// create tuple  array
+	///
 	func toTuple() -> [(Element, Element)] {
 		var tuples: [(Element, Element)] = []
 		

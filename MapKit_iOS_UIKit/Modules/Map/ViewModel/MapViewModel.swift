@@ -90,7 +90,7 @@ extension MapViewModel {
 		self.isLoadingPublisher.value = true
 		DataManager.shared.fetchDirections(ofNew: placemark, toOld: _placemarks, current: userPlacemark) { result in
 			self.isLoadingPublisher.value = false
-		
+			
 			switch result {
 				case let .success(directions):
 					DataManager.shared.save(directions: directions)
@@ -115,12 +115,12 @@ extension MapViewModel {
 					DispatchQueue.main.async {
 						self.add(placemark: placemark, completion: { (result) in
 							switch result {
-							case .failure(let error):
-								completion?(.failure(error))
-								semaphore.signal()
-								queue.cancelAllOperations()
-							case .success:
-								semaphore.signal()
+								case .failure(let error):
+									completion?(.failure(error))
+									semaphore.signal()
+									queue.cancelAllOperations()
+								case .success:
+									semaphore.signal()
 							}
 						})
 					}
@@ -133,6 +133,80 @@ extension MapViewModel {
 			DispatchQueue.main.async {
 				completion?(.success(Void()))
 			}
+		}
+	}
+	
+	/// show result calculter
+	func showResultCalculate(
+		statAt currentPlacemark: SCPlacemark?,
+		desitinations: [SCPlacemark]
+	) -> [TourModel] {
+		
+		var tourModels: [TourModel] = []
+		
+		guard desitinations.count == 1 else {
+			/*
+			 [1, 2, 3] -> [[1, 2, 3], [1, 3, 2], [2, 3, 1], [2, 1, 3], [3, 1, 2], [3, 2, 1]]
+			*/
+			let permutations = AlgorithmManager.permutations(desitinations)
+			
+			/*
+			 [ [(1, 2),  (2, 3) ],  [ (1, 3),  (3, 2) ],  [ (2, 3),  (3, 1) ],  [(2, 1),  (1, 3) ] ,  [ (3, 1) , (1, 2) ],  [ (3, 2),  (2, 1) ] ]
+			*/
+			let tuplesCollection = permutations.map { (placemarks) -> [(SCPlacemark, SCPlacemark)] in
+				return placemarks.toTuple()
+			}
+			
+			/// parente loop
+			for (index, tuples) in tuplesCollection.enumerated() {
+				let tourModel = TourModel()
+				tourModels.append(tourModel)
+				
+				/// nested loop
+				for (nestedIndex, tuple) in tuples.enumerated() {
+					/// current location to first location
+					if nestedIndex == 0, let userPlacemark = currentPlacemark {
+						let source = userPlacemark, destination =  tuple.0
+						if let directions = DataManager.shared.findDirection(
+							source: source,
+							destination: destination
+						) {
+							tourModels[index].directions.append(directions)
+						}
+					}
+					
+					/// FIst location to second location
+					let source = tuple.0, destination = tuple.1
+					if let direction = DataManager.shared.findDirection(source: source, destination: destination) {
+						tourModels[index].directions.append(direction)
+					}
+				}
+			}
+			return tourModels
+		}
+		
+		///
+		/// this blocke excecute when only one destination we have
+		///
+		if let source = userPlacemark, let destination = desitinations.first {
+			if let directions = DataManager.shared.findDirection(source: source, destination: destination) {
+				var tourModel = TourModel()
+				tourModel.directions.append(directions)
+				tourModels.append(tourModel)
+			}
+		}
+		
+		return tourModels
+	}
+	
+	func tourModel(preferResult: PreferResult, in tourModels: [TourModel]) -> TourModel? {
+		switch preferResult {
+		case .distance:
+			return tourModels.sorted().first
+		case .time:
+			return tourModels.sorted(by: { (lhs, rhs) -> Bool in
+				return lhs.sumOfExpectedTravelTime < rhs.sumOfExpectedTravelTime
+			}).first
 		}
 	}
 }

@@ -68,6 +68,18 @@ class MapViewController: BaseViewController<MapViewModel> {
 	}
 	
 	private func initObservers() {
+		
+		viewModel.placemarks.bind { [weak self] placemark in
+			guard let self else { return }
+			
+		}
+		
+		viewModel.didUpdateUserPlacemark?
+			.bind(listener: { [weak self] (newValue, oldValue) in
+				guard let self else { return }
+				
+		})
+		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
 			guard let self else { return }
 			if value {
