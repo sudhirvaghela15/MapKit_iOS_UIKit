@@ -69,15 +69,34 @@ class MapViewController: BaseViewController<MapViewModel> {
 	
 	private func initObservers() {
 		
-		viewModel.placemarks.bind { [weak self] placemark in
+		viewModel.placemarks.bind { [weak self] placemarks in
 			guard let self else { return }
 			
 		}
 		
+		viewModel.didUpdatePolylines.bind { [weak self] polylines in
+			guard let self else { return }
+			
+			mapView.removeOverlays(mapView.overlays)
+			mapView.addOverlays(polylines, level: .aboveRoads)
+			if polylines.count > 0 {
+				let rect = MapMananger.boundingMapRect(polylines: polylines)
+				let verticalInset = mapView.frame.height / 10
+				let horizatonInset = mapView.frame.width / 10
+				let edgeInsets = UIEdgeInsets(top: verticalInset, left: horizatonInset, bottom: verticalInset + (heightOfUnit * 2), right: horizatonInset) // TODO: 88 為 lowestY, 應該綁在一起
+				mapView.setVisibleMapRect(rect, edgePadding: edgeInsets, animated: false)
+			} else {
+				mapView.showAnnotations([mapView.userLocation], animated: true)
+			}
+		}
+		
 		viewModel.didUpdateUserPlacemark?
 			.bind(listener: { [weak self] (newValue, oldValue) in
-				guard let self else { return }
-				
+			guard let self else { return }
+				guard oldValue != newValue else {
+				return
+			}
+			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
 		})
 		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in

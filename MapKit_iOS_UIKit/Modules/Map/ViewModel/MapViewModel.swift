@@ -18,6 +18,26 @@ class MapViewModel: BaseViewModel {
 	
 	public var placemarks: BoxBind<[SCPlacemark]> = .init([])
 	
+	private(set) var preferResult: PreferResult = .distance {
+		didSet {
+			tourModel = tourModel(preferResult: preferResult, in: tourModels)
+		}
+	}
+	
+	private(set) var tourModels: [TourModel] = [] {
+		didSet {
+			tourModel = tourModel(preferResult: preferResult, in: tourModels)
+		}
+	}
+	
+	private(set) var tourModel: TourModel? {
+		didSet {
+			guard let tourModel = tourModel else { return }
+			didUpdatePolylines.value = tourModel.polylines
+			placemarks.value = tourModel.destinations
+		}
+	}
+	
 	private var _placemarks: [SCPlacemark] = []
 	
 	private var deviceLocation: CLLocation? {
@@ -97,6 +117,10 @@ extension MapViewModel {
 					var placemarks = self._placemarks
 					placemarks.append(placemark)
 					self._placemarks = placemarks
+					self.tourModels = self.showResultCalculate(
+						statAt: self.userPlacemark,
+						desitinations: placemarks
+					)
 					completion?(.success(Void()))
 				case let .failure( error):
 					completion?(.failure(error))
