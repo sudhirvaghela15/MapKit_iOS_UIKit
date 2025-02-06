@@ -52,12 +52,30 @@ class MapViewController: BaseViewController<MapViewModel> {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		 _ = searchController
-		self.mapView.delegate = self
-		self.setupLocationManager()
-		let status = locationManager.authorizationStatus
+		
+		_ = searchController
+		
+		mapView.delegate = self
+		
+		setupLocationManager()
+		
+		cprint(locationManager.authorizationStatus)
+		
 		layoutLeftBarButtonItem()
-		debugPrint("Log - \(status.rawValue)")
+		
+		initObservers()
+	
+	}
+	
+	private func initObservers() {
+		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
+			guard let self else { return }
+			if value {
+				openMovableView()
+			} else {
+				closeMovableView()
+			}
+		})
 	}
 	
 	private func setupLocationManager() {
@@ -68,7 +86,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 	}
 }
 
-// MARK: - MKMapViewDelegate
+// MARK: - MKMap View Delegate
 extension MapViewController: MKMapViewDelegate {
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -92,6 +110,7 @@ extension MapViewController: MKMapViewDelegate {
 	}
 }
 
+// MARK: - CL Location Manager Delegate
 extension MapViewController: CLLocationManagerDelegate {
 	private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 		if status != .authorizedWhenInUse {
@@ -112,22 +131,6 @@ extension MapViewController: CLLocationManagerDelegate {
 		print("manager didFailWithError: \(error.localizedDescription)")
 	}
 }
-
-// MARK: - Factory Method
-extension MapViewController {
-	static func get(viewModel: Value) -> UIViewController {
-		let storyboard = UIStoryboard(
-			name: "Map",
-			bundle: Bundle.main
-		)
-		
-		let view = storyboard.instantiate(MapViewController.self) { coder in
-			MapViewController(coder: coder, viewModel: viewModel)
-		}
-		return view
-	}
-}
-
 
 //MARK: - UISearchControllerDelegate
 extension MapViewController: UISearchControllerDelegate {
@@ -222,7 +225,7 @@ extension MapViewController {
 	}
 	
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-		let index = cprint(sender.selectedSegmentIndex)
+	cprint(sender.selectedSegmentIndex)
 		
 	}
 	
@@ -232,15 +235,6 @@ extension MapViewController {
 	
 	func  magnetTableView() {
 		let buffer = self.toolbar.bounds.height
-		
-		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
-			guard let self else { return }
-			if value {
-				openMovableView()
-			} else {
-				closeMovableView()
-			}
-		})
 		
 		if viewModel.shouldShowTableView.value {
 			let shouldHide = (movableViewTopToMapViewBottom.constant > (switchOnConstantOfMovableView + buffer))
@@ -276,4 +270,19 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 		UITableViewCell()
 	}
 
+}
+
+// MARK: - Factory Method
+extension MapViewController {
+	static func get(viewModel: Value) -> UIViewController {
+		let storyboard = UIStoryboard(
+			name: "Map",
+			bundle: Bundle.main
+		)
+		
+		let view = storyboard.instantiate(MapViewController.self) { coder in
+			MapViewController(coder: coder, viewModel: viewModel)
+		}
+		return view
+	}
 }

@@ -9,9 +9,14 @@ import Foundation
 import MapKit.MKPlacemark
 
 class MapViewModel: BaseViewModel {
+
 	public var didUpdateUserPlacemark: BoxBind<(newValue: SCPlacemark, oldValue: SCPlacemark?)>?
 	
 	public var shouldShowTableView: BoxBind<Bool> = .init(false)
+	
+	public var didUpdatePolylines: BoxBind<[MKPolyline]> = .init([])
+	
+	public var placemarks: BoxBind<[SCPlacemark]> = .init([])
 	
 	private var _placemarks: [SCPlacemark] = []
 	
