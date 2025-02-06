@@ -10,7 +10,7 @@ import MapKit.MKPlacemark
 
 class MapViewModel: BaseViewModel {
 
-	public var didUpdateUserPlacemark: BoxBind<(newValue: SCPlacemark, oldValue: SCPlacemark?)>?
+	public var didUpdateUserPlacemark: BoxBind<(newValue: SCPlacemark?, oldValue: SCPlacemark?)> = .init((nil, nil))
 	
 	public var shouldShowTableView: BoxBind<Bool> = .init(false)
 	
@@ -62,27 +62,32 @@ class MapViewModel: BaseViewModel {
 	private(set) var userPlacemark: SCPlacemark? {
 		didSet {
 			guard let placemark = userPlacemark else { return }
-			self.didUpdateUserPlacemark?.value = (newValue: placemark, oldValue: oldValue)
+			self.didUpdateUserPlacemark.value = (
+				newValue: placemark,
+				oldValue: oldValue
+			)
 			
 			guard placemark != oldValue else { return }
 			
 			if _placemarks.count == 0 {
 				// add mock placemark
 			} else {
+				
 				let tempPlacemarks = _placemarks
+				
 				_placemarks = []
+				
 				add(placemarks: tempPlacemarks) { [weak self] (result) in
 					guard let self = self else { return }
 					switch result {
 					case .failure(let error):
 						self.errorPublisher?.value = error
 					case .success:
-						self.didUpdateUserPlacemark?.value = (
-							newValue: placemark,
-							oldValue: oldValue
-						)
+						self.didUpdateUserPlacemark.value = (newValue: placemark, oldValue: oldValue)
 					}
+					
 				}
+				
 			}
 		}
 	}
@@ -95,6 +100,24 @@ class MapViewModel: BaseViewModel {
 	func update(deviece location: CLLocation) {
 		self.deviceLocation = location
 	}
+	
+	func placemark(at coordinate: CLLocationCoordinate2D) -> SCPlacemark? {
+		return _placemarks.first { (placemark) -> Bool in
+			return placemark.coordinate.latitude == coordinate.latitude &&
+				placemark.coordinate.longitude == coordinate.longitude
+		}
+	}
+	
+	func tourModel(preferResult: PreferResult, in tourModels: [TourModel]) -> TourModel? {
+		switch preferResult {
+		case .distance:
+			return tourModels.sorted().first
+		case .time:
+			return tourModels.sorted(by: { (lhs, rhs) -> Bool in
+				return lhs.sumOfExpectedTravelTime < rhs.sumOfExpectedTravelTime
+			}).first
+		}
+	}
 }
 
 extension MapViewModel {
@@ -103,25 +126,32 @@ extension MapViewModel {
 		/// - Parameters:
 		///   - placemark: SCPlacemark
 		///   - completion: call back
-	func add(
-		placemark: SCPlacemark,
-		completion: ((Result<Void, Error>) -> Void)? = nil
-	) {
+	func add(placemark: SCPlacemark, completion: ((Result<Void, Error>) -> Void)? = nil) {
+		
 		self.isLoadingPublisher.value = true
+		
 		DataManager.shared.fetchDirections(ofNew: placemark, toOld: _placemarks, current: userPlacemark) { result in
+			
 			self.isLoadingPublisher.value = false
 			
 			switch result {
 				case let .success(directions):
+					
 					DataManager.shared.save(directions: directions)
+					
 					var placemarks = self._placemarks
+					
 					placemarks.append(placemark)
+					
 					self._placemarks = placemarks
+					
 					self.tourModels = self.showResultCalculate(
 						statAt: self.userPlacemark,
 						desitinations: placemarks
 					)
+					
 					completion?(.success(Void()))
+					
 				case let .failure( error):
 					completion?(.failure(error))
 			}
@@ -221,16 +251,5 @@ extension MapViewModel {
 		}
 		
 		return tourModels
-	}
-	
-	func tourModel(preferResult: PreferResult, in tourModels: [TourModel]) -> TourModel? {
-		switch preferResult {
-		case .distance:
-			return tourModels.sorted().first
-		case .time:
-			return tourModels.sorted(by: { (lhs, rhs) -> Bool in
-				return lhs.sumOfExpectedTravelTime < rhs.sumOfExpectedTravelTime
-			}).first
-		}
 	}
 }

@@ -10,10 +10,14 @@ import MapKit
 
 class MapViewController: BaseViewController<MapViewModel> {
 	
-	@IBOutlet weak var mapView: MKMapView!
+	@IBOutlet weak var mapView: MKMapView! {
+		didSet {
+			mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMarkerAnnotationView.ClassName)
+		}
+	}
 	@IBOutlet weak var tableView: UITableView!
 	
-	// movableView
+// movableView
 	@IBOutlet weak var movableView: UIVisualEffectView!
 	@IBOutlet weak var constriantOfMovableViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var movableViewTopToMapViewBottom: NSLayoutConstraint!
@@ -29,10 +33,11 @@ class MapViewController: BaseViewController<MapViewModel> {
 	}
 	
 	private let heightOfUnit: CGFloat = 44.0
+
 	private var switchOnConstantOfMovableView: CGFloat {
 		return -((mapView.bounds.height / 2) - heightOfUnit)
 	}
-	
+
 	private var switchOffConstantOfMovableView: CGFloat {
 		return -heightOfUnit * 2
 	}
@@ -83,15 +88,14 @@ class MapViewController: BaseViewController<MapViewModel> {
 				let rect = MapMananger.boundingMapRect(polylines: polylines)
 				let verticalInset = mapView.frame.height / 10
 				let horizatonInset = mapView.frame.width / 10
-				let edgeInsets = UIEdgeInsets(top: verticalInset, left: horizatonInset, bottom: verticalInset + (heightOfUnit * 2), right: horizatonInset) // TODO: 88 為 lowestY, 應該綁在一起
+				let edgeInsets = UIEdgeInsets(top: verticalInset, left: horizatonInset, bottom: verticalInset + (heightOfUnit * 2), right: horizatonInset)
 				mapView.setVisibleMapRect(rect, edgePadding: edgeInsets, animated: false)
 			} else {
 				mapView.showAnnotations([mapView.userLocation], animated: true)
 			}
 		}
 		
-		viewModel.didUpdateUserPlacemark?
-			.bind(listener: { [weak self] (newValue, oldValue) in
+		viewModel.didUpdateUserPlacemark.bind(listener: { [weak self] (newValue, oldValue) in
 			guard let self else { return }
 				guard oldValue != newValue else {
 				return
@@ -117,8 +121,120 @@ class MapViewController: BaseViewController<MapViewModel> {
 	}
 }
 
+	// MARK: - Movable View's code
+extension MapViewController {
+	func layoutMovableView() {
+		movableView.layer.cornerRadius = 22.0
+		movableView.layer.masksToBounds = true
+		constriantOfMovableViewHeight.constant = view.frame.height / 2
+	}
+	
+	@IBAction func tapGestureRecognizerDidPressed(_ sender: UITapGestureRecognizer) {
+		viewModel.shouldShowTableView.value.toggle()
+	}
+	
+	@IBAction func panGestureRecognizerDidPressed(_ sender: UIPanGestureRecognizer) {
+		let touchPoint = sender.location(in: mapView)
+		switch sender.state {
+			case .began:
+				break
+			case .changed:
+				movableViewTopToMapViewBottom.constant = -(mapView.bounds.height - touchPoint.y)
+			case .ended, .failed, .cancelled:
+				magnetTableView()
+			default:
+				break
+		}
+	}
+	
+	@IBAction func leftBarButtonItemDidPressed(_ sender: Any) {
+		tableView.setEditing(!tableView.isEditing, animated: true)
+		perform(#selector(layoutLeftBarButtonItem), with: nil, afterDelay: 0.25)
+	}
+	
+	@objc
+	func layoutLeftBarButtonItem() {
+		func frameOfSegmentedControl(frame: CGRect, superframe: CGRect) -> CGRect {
+			var newframe = frame
+			newframe.size.width = superframe.width/2
+			return newframe
+		}
+		segmentedControl.frame = frameOfSegmentedControl(frame: segmentedControl.frame, superframe: toolbar.frame)
+		let container = UIBarButtonItem(customView: segmentedControl)
+		let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let userTrackingBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
+		toolbar
+			.setItems(
+				[
+					leftBarButtonItem(),
+					flexibleSpace,
+					container,
+					flexibleSpace,
+					userTrackingBarButtonItem
+				],
+				animated: false
+			)
+	}
+	
+	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+		cprint(sender.selectedSegmentIndex)
+		
+	}
+	
+	private func leftBarButtonItem() -> UIBarButtonItem {
+		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
+	}
+	
+	func  magnetTableView() {
+		let buffer = self.toolbar.bounds.height
+		
+		if viewModel.shouldShowTableView.value {
+			let shouldHide = (movableViewTopToMapViewBottom.constant > (switchOnConstantOfMovableView + buffer))
+			viewModel.shouldShowTableView.value = !shouldHide
+		} else {
+			let shouldShow = (movableViewTopToMapViewBottom.constant < (switchOffConstantOfMovableView - buffer))
+			viewModel.shouldShowTableView.value = shouldShow
+		}
+	}
+	
+	func openMovableView() {
+		UIView.animate(withDuration: 0.25) {
+			self.movableViewTopToMapViewBottom.constant = self.switchOnConstantOfMovableView
+			self.view.layoutIfNeeded()
+		}
+	}
+	
+	func closeMovableView() {
+		UIView.animate(withDuration: 0.25) {
+			self.movableViewTopToMapViewBottom.constant = self.switchOffConstantOfMovableView
+			self.view.layoutIfNeeded()
+		}
+	}
+}
+
 // MARK: - MKMap View Delegate
 extension MapViewController: MKMapViewDelegate {
+	
+	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+		if shouldUpdateLocation, let deviceLocation = userLocation.location {
+			shouldUpdateLocation = false
+			viewModel.update(deviece: deviceLocation)
+		}
+	}
+	
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		guard let annotation = annotation as? SCAnnotation else { return nil }
+		let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMarkerAnnotationView.ClassName, for: annotation) as? MKMarkerAnnotationView
+		annotationView?.canShowCallout = true
+		annotationView?.leftCalloutAccessoryView = UIButton(type: .contactAdd)
+		annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
+		annotationView?.titleVisibility = .adaptive
+		annotationView?.markerTintColor = .red
+		annotationView?.glyphTintColor = .white
+		annotationView?.displayPriority = .required
+		annotationView?.glyphText = "\(annotation.sorted)"
+		return annotationView
+	}
 	
 	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 		let renderer = MKPolylineRenderer(overlay: overlay)
@@ -128,15 +244,21 @@ extension MapViewController: MKMapViewDelegate {
 	}
 	
 	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-		guard let annotation = view.annotation else {
+		guard let annotation = view.annotation,
+		let placemark = viewModel.placemark(at: annotation.coordinate) else {
 			print("view.annotation is nil")
 			return
 		}
-	}
-	
-	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-		if shouldUpdateLocation, let deviceLocation = userLocation.location {
-			shouldUpdateLocation = false
+		
+		switch control {
+			case let left where left == view.leftCalloutAccessoryView:
+			/// favorite placemark logic
+				break
+			case let right where right == view.rightCalloutAccessoryView:
+				let mapItems = [placemark.toMapItem]
+				let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+				MKMapItem.openMaps(with: mapItems, launchOptions: options)
+			default: break
 		}
 	}
 }
@@ -163,7 +285,7 @@ extension MapViewController: CLLocationManagerDelegate {
 	}
 }
 
-//MARK: - UISearchControllerDelegate
+// MARK: - UISearchControllerDelegate
 extension MapViewController: UISearchControllerDelegate {
 	func makeSearchController() -> UISearchController {
 		let searchController = UISearchController(
@@ -200,98 +322,7 @@ extension MapViewController: UISearchControllerDelegate {
 	}
 }
 
-// MARK: - Movable View's code
-extension MapViewController {
-	func layoutMovableView() {
-		movableView.layer.cornerRadius = 22.0
-		movableView.layer.masksToBounds = true
-		constriantOfMovableViewHeight.constant = view.frame.height / 2
-	}
-	
-	@IBAction func tapGestureRecognizerDidPressed(_ sender: UITapGestureRecognizer) {
-		viewModel.shouldShowTableView.value.toggle()
-	}
-	
-	@IBAction func panGestureRecognizerDidPressed(_ sender: UIPanGestureRecognizer) {
-		let touchPoint = sender.location(in: mapView)
-		switch sender.state {
-		case .began:
-			break
-		case .changed:
-			movableViewTopToMapViewBottom.constant = -(mapView.bounds.height - touchPoint.y)
-		case .ended, .failed, .cancelled:
-			magnetTableView()
-		default:
-			break
-		}
-	}
-	
-	@IBAction func leftBarButtonItemDidPressed(_ sender: Any) {
-		tableView.setEditing(!tableView.isEditing, animated: true)
-		perform(#selector(layoutLeftBarButtonItem), with: nil, afterDelay: 0.25)
-	}
-	
-	@objc
-	func layoutLeftBarButtonItem() {
-		func frameOfSegmentedControl(frame: CGRect, superframe: CGRect) -> CGRect {
-			var newframe = frame
-			newframe.size.width = superframe.width/2
-			return newframe
-		}
-		segmentedControl.frame = frameOfSegmentedControl(frame: segmentedControl.frame, superframe: toolbar.frame)
-		let container = UIBarButtonItem(customView: segmentedControl)
-		let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		let userTrackingBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
-		toolbar
-			.setItems(
-				[
-					leftBarButtonItem(),
-					flexibleSpace,
-					container,
-					flexibleSpace,
-					userTrackingBarButtonItem
-				],
-				animated: false
-			)
-	}
-	
-	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-	cprint(sender.selectedSegmentIndex)
-		
-	}
-	
-	private func leftBarButtonItem() -> UIBarButtonItem {
-		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
-	}
-	
-	func  magnetTableView() {
-		let buffer = self.toolbar.bounds.height
-		
-		if viewModel.shouldShowTableView.value {
-			let shouldHide = (movableViewTopToMapViewBottom.constant > (switchOnConstantOfMovableView + buffer))
-			viewModel.shouldShowTableView.value = !shouldHide
-		} else {
-			let shouldShow = (movableViewTopToMapViewBottom.constant < (switchOffConstantOfMovableView - buffer))
-			viewModel.shouldShowTableView.value = shouldShow
-		}
-	}
-	
-	func openMovableView() {
-		UIView.animate(withDuration: 0.25) {
-			self.movableViewTopToMapViewBottom.constant = self.switchOnConstantOfMovableView
-			self.view.layoutIfNeeded()
-		}
-	}
-	
-	func closeMovableView() {
-		UIView.animate(withDuration: 0.25) {
-			self.movableViewTopToMapViewBottom.constant = self.switchOffConstantOfMovableView
-			self.view.layoutIfNeeded()
-		}
-	}
-}
-
-
+// MARK: - Table View Delegete and Datasource
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		0

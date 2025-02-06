@@ -28,10 +28,10 @@
 		F2A8EEF92CF64FB60004EF05 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEF82CF64FB60004EF05 /* DataManager.swift */; };
 		F2A8EEFB2CF650090004EF05 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */; };
 		F2D935EB2D53DA4700927840 /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D935EA2D53DA4700927840 /* SectionType.swift */; };
-		F2D936462D53F67E00927840 /* SCPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D936432D53F67E00927840 /* SCPlacemark.swift */; };
 		F2D936472D53F67E00927840 /* PreferResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D936422D53F67E00927840 /* PreferResult.swift */; };
 		F2D9364C2D53F6EC00927840 /* TourModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9364B2D53F6EC00927840 /* TourModel.swift */; };
 		F2D9364E2D53F6F800927840 /* AlgorithmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9364D2D53F6F800927840 /* AlgorithmManager.swift */; };
+		F2D936502D54C6FA00927840 /* SCAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9364F2D54C6FA00927840 /* SCAnnotation.swift */; };
 		F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F42D52933B00CE530F /* Array+Extension.swift */; };
 		F2F479F92D529E7A00CE530F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F479F82D529E7A00CE530F /* Helper.swift */; };
 /* End PBXBuildFile section */
@@ -61,9 +61,9 @@
 		F2A8EEFA2CF650090004EF05 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 		F2D935EA2D53DA4700927840 /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
 		F2D936422D53F67E00927840 /* PreferResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferResult.swift; sourceTree = "<group>"; };
-		F2D936432D53F67E00927840 /* SCPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCPlacemark.swift; sourceTree = "<group>"; };
 		F2D9364B2D53F6EC00927840 /* TourModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourModel.swift; sourceTree = "<group>"; };
 		F2D9364D2D53F6F800927840 /* AlgorithmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgorithmManager.swift; sourceTree = "<group>"; };
+		F2D9364F2D54C6FA00927840 /* SCAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCAnnotation.swift; sourceTree = "<group>"; };
 		F2F479F42D52933B00CE530F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		F2F479F82D529E7A00CE530F /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,9 +161,9 @@
 		F2A8EE592CF33D8F0004EF05 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F2D9364F2D54C6FA00927840 /* SCAnnotation.swift */,
 				F2D9364B2D53F6EC00927840 /* TourModel.swift */,
 				F2D936422D53F67E00927840 /* PreferResult.swift */,
-				F2D936432D53F67E00927840 /* SCPlacemark.swift */,
 				F2A8EEF62CF64D240004EF05 /* DirectionModel.swift */,
 				F2D935EA2D53DA4700927840 /* SectionType.swift */,
 				F2A8EEE82CF38ED90004EF05 /* SCPlacemark.swift */,
@@ -348,13 +348,13 @@
 				F2A8EEF72CF64D240004EF05 /* DirectionModel.swift in Sources */,
 				F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */,
 				F2F479F52D52933B00CE530F /* Array+Extension.swift in Sources */,
+				F2D936502D54C6FA00927840 /* SCAnnotation.swift in Sources */,
 				F2A8EEE72CF364900004EF05 /* NSObject+EXT.swift in Sources */,
 				F2A8EEE12CF34BF20004EF05 /* UIStoryboard+Extension.swift in Sources */,
 				F2A8EEF32CF4FB9B0004EF05 /* MapManager.swift in Sources */,
 				F2A8EEEB2CF4EA320004EF05 /* CLLocationCoordinate2D + Extension.swift in Sources */,
 				F2D935EB2D53DA4700927840 /* SectionType.swift in Sources */,
 				F2A8EE672CF33D8F0004EF05 /* ViewModel.swift in Sources */,
-				F2D936462D53F67E00927840 /* SCPlacemark.swift in Sources */,
 				F2D936472D53F67E00927840 /* PreferResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
