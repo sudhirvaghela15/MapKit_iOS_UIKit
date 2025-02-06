@@ -76,7 +76,12 @@ class MapViewController: BaseViewController<MapViewModel> {
 		
 		viewModel.placemarks.bind { [weak self] placemarks in
 			guard let self else { return }
-			
+			mapView.removeAnnotations(mapView.annotations)
+			let annotations = placemarks.enumerated().map { (arg0) -> SCAnnotation in
+				let (offset, element) = arg0
+				return SCAnnotation(placemark: element, sorted: offset + 1)
+			}
+			mapView.addAnnotations(annotations)
 		}
 		
 		viewModel.didUpdatePolylines.bind { [weak self] polylines in
@@ -100,7 +105,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 				guard oldValue != newValue else {
 				return
 			}
-			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
+//			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
 		})
 		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
