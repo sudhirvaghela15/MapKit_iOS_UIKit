@@ -18,6 +18,14 @@ class MapViewModel: BaseViewModel {
 	
 	public var placemarks: BoxBind<[SCPlacemark]> = .init([])
 	
+	var result: String? {
+		return tourModel?.routeInformation
+	}
+	
+	var routeInfo: (String?, String?) {
+		return (tourModel?.distance, tourModel?.time)
+	}
+	
 	private(set) var preferResult: PreferResult = .distance {
 		didSet {
 			tourModel = tourModel(preferResult: preferResult, in: tourModels)

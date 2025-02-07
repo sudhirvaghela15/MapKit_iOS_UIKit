@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import SwiftUI
 
 class MapViewController: BaseViewController<MapViewModel> {
 	
@@ -60,6 +61,9 @@ class MapViewController: BaseViewController<MapViewModel> {
 		
 		_ = searchController
 		
+		/// delegate setup
+		tableView.delegate = self
+		tableView.dataSource = self
 		mapView.delegate = self
 		
 		setupLocationManager()
@@ -69,6 +73,8 @@ class MapViewController: BaseViewController<MapViewModel> {
 		layoutLeftBarButtonItem()
 		
 		initObservers()
+		
+		
 	
 	}
 	
@@ -82,6 +88,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 				return SCAnnotation(placemark: element, sorted: offset + 1)
 			}
 			mapView.addAnnotations(annotations)
+			tableView.reloadData()
 		}
 		
 		viewModel.didUpdatePolylines.bind { [weak self] polylines in
@@ -106,6 +113,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 				return
 			}
 //			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
+			tableView.reloadData()
 		})
 		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
@@ -292,6 +300,7 @@ extension MapViewController: CLLocationManagerDelegate {
 
 // MARK: - UISearchControllerDelegate
 extension MapViewController: UISearchControllerDelegate {
+	
 	func makeSearchController() -> UISearchController {
 		let searchController = UISearchController(
 			searchResultsController: addressResultTableViewController)
@@ -325,16 +334,109 @@ extension MapViewController: UISearchControllerDelegate {
 	
 		return searchController
 	}
+	
 }
 
 // MARK: - Table View Delegete and Datasource
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return SectionType.allCases.count
+	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		0
+		guard let type = SectionType(rawValue: section) else {
+			return 0
+		}
+		
+		switch type {
+		case .result:
+			return (viewModel.tourModel != nil) ? 1 : 0
+		case .source:
+			return (viewModel.userPlacemark != nil) ? 1 : 0
+		case .destination:
+			return viewModel.placemarks.value.count
+		}
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		UITableViewCell()
+		let cell = tableView.dequeueReusableCell(
+			withIdentifier: "cell",
+			for: indexPath
+		)
+		
+		guard let type = SectionType(rawValue: indexPath.section) else {
+			return cell
+		}
+		
+		switch type {
+			case .result:
+					/// swift ui configuration
+				cell.contentConfiguration = UIHostingConfiguration {
+					HStack {
+						VStack(alignment: .leading, spacing: 2) {
+							let (distance, duration) = viewModel.routeInfo
+							
+							Text("Estimation Arrival")
+								.font(.title3)
+								.multilineTextAlignment(.center)
+							
+							VStack(alignment: .leading) {
+								Text(distance ?? "")
+									.font(.caption)
+								
+								Text(duration ?? "")
+									.font(.caption)
+							}
+						}.fontWeight(.bold)
+						Spacer()
+					}.padding(.horizontal, 16)
+					.padding(.vertical, 5)
+					.background(
+						Color.orange
+							.clipShape(RoundedRectangle(cornerRadius: 12))
+					)
+				}
+				
+			case .source:
+				/// swift ui configuration
+				let placemark = viewModel.userPlacemark
+				cell.contentConfiguration = UIHostingConfiguration {
+					
+					HStack {
+						VStack(alignment: .leading) {
+							
+							Text("Source: Current Location")
+								.font(.headline)
+								.lineLimit(1)
+								.multilineTextAlignment(.leading)
+							
+							Text(placemark?.title ?? "")
+								.font(.caption)
+								.multilineTextAlignment(.leading)
+							
+						}
+						Spacer()
+					}.frame(maxWidth: .infinity)
+					.padding(.horizontal, 16)
+					.padding(.vertical, 10)
+					.background(
+						Color.cyan
+							.clipShape(
+								RoundedRectangle(cornerRadius: 12)
+							)
+					)
+					.foregroundStyle(.black)
+				}
+				
+			case .destination:
+				/// ui kit configuaration
+				let placemark = viewModel.placemarks.value[indexPath.row]
+				cell.textLabel?.text = "\(indexPath.row + 1). " + (placemark.name ?? "")
+				cell.detailTextLabel?.text = placemark.title
+		}
+			
+		return cell
 	}
 
 }

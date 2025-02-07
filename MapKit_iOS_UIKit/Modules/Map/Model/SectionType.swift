@@ -8,7 +8,15 @@
 import Foundation
 
 enum SectionType: Int, CaseIterable {
-		case result = 0
-		case source = 1
-		case destination = 2
+	case result = 0
+	case source = 1
+	case destination = 2
+	
+	var title: String {
+		switch self {
+			case .result: "Result"
+			case .source: "Source"
+			case .destination: "Destination"
+		}
 	}
+}

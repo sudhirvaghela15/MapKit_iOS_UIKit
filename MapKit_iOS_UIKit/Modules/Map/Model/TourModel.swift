@@ -33,6 +33,16 @@ extension TourModel {
 		return directions.map{ $0.expectedTravelTime }.reduce(0, +)
 	}
 	
+	
+	var time: String {
+		String(format: "Time" + ": %.2f " + "min", sumOfExpectedTravelTime / 60)
+	}
+	
+	var distance: String {
+		String(format: "Distance" + ": %.2f " + "KM", distances / 1000)
+	}
+	
+	
 	var routeInformation: String {
 		let distance = String(format: "Distance" + ": %.2f " + "km", distances/1000)
 		let time = String(format: "Time" + ": %.2f " + "min", sumOfExpectedTravelTime/60)
