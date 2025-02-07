@@ -38,6 +38,10 @@ class MapViewController: BaseViewController<MapViewModel> {
 	private var switchOnConstantOfMovableView: CGFloat {
 		return -((mapView.bounds.height / 2) - heightOfUnit)
 	}
+	
+	private func leftBarButtonItem() -> UIBarButtonItem {
+		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
+	}
 
 	private var switchOffConstantOfMovableView: CGFloat {
 		return -heightOfUnit * 2
@@ -73,9 +77,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 		layoutLeftBarButtonItem()
 		
 		initObservers()
-		
-		
-	
+
 	}
 	
 	private func initObservers() {
@@ -112,8 +114,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 				guard oldValue != newValue else {
 				return
 			}
-//			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
-			tableView.reloadData()
+			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
 		})
 		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
@@ -176,8 +177,7 @@ extension MapViewController {
 		let container = UIBarButtonItem(customView: segmentedControl)
 		let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let userTrackingBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
-		toolbar
-			.setItems(
+		toolbar.setItems(
 				[
 					leftBarButtonItem(),
 					flexibleSpace,
@@ -194,9 +194,6 @@ extension MapViewController {
 		
 	}
 	
-	private func leftBarButtonItem() -> UIBarButtonItem {
-		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
-	}
 	
 	func  magnetTableView() {
 		let buffer = self.toolbar.bounds.height
@@ -371,8 +368,8 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 		
 		switch type {
 			case .result:
-					/// swift ui configuration
-				cell.contentConfiguration = UIHostingConfiguration {
+				let cell2 = UITableViewCell(style: .default, reuseIdentifier: "cell2")
+				cell2.contentConfiguration = UIHostingConfiguration {
 					HStack {
 						VStack(alignment: .leading, spacing: 2) {
 							let (distance, duration) = viewModel.routeInfo
@@ -397,11 +394,13 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 							.clipShape(RoundedRectangle(cornerRadius: 12))
 					)
 				}
+				return cell2
 				
 			case .source:
-				/// swift ui configuration
+				/// swift ui configureation
+				let cell3 = UITableViewCell(style: .default, reuseIdentifier: "cell3")
 				let placemark = viewModel.userPlacemark
-				cell.contentConfiguration = UIHostingConfiguration {
+				cell3.contentConfiguration = UIHostingConfiguration {
 					
 					HStack {
 						VStack(alignment: .leading) {
@@ -428,6 +427,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 					)
 					.foregroundStyle(.black)
 				}
+				return cell3
 				
 			case .destination:
 				/// ui kit configuaration
