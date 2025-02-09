@@ -105,8 +105,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="barButtonItemDone" destination="pPY-KV-LRX" id="3oT-sW-JhP"/>
-                        <outlet property="barButtonItemEdit" destination="sUS-b1-Lyl" id="4lq-Ed-dC0"/>
+                        <outlet property="barButtonItemDone" destination="pPY-KV-LRX" id="nze-xW-078"/>
+                        <outlet property="barButtonItemEdit" destination="sUS-b1-Lyl" id="Blt-xA-QLr"/>
                         <outlet property="constriantOfMovableViewHeight" destination="NUa-lB-fmT" id="700-Cy-Pw4"/>
                         <outlet property="mapView" destination="gUN-Hb-sEE" id="LVE-on-wOH"/>
                         <outlet property="movableView" destination="0mo-fP-R2j" id="y4z-zK-thu"/>
@@ -117,8 +117,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <barButtonItem style="plain" systemItem="done" id="pPY-KV-LRX"/>
-                <barButtonItem style="plain" systemItem="done" id="sUS-b1-Lyl" userLabel="Edit"/>
+                <barButtonItem style="plain" systemItem="done" id="pPY-KV-LRX">
+                    <connections>
+                        <action selector="leftBarButtonItemDidPressed:" destination="Y6W-OH-hqX" id="VG1-eI-4Ip"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem style="plain" systemItem="edit" id="sUS-b1-Lyl" userLabel="Edit">
+                    <connections>
+                        <action selector="leftBarButtonItemDidPressed:" destination="Y6W-OH-hqX" id="5m3-EB-C3S"/>
+                    </connections>
+                </barButtonItem>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Q9Z-B2-82s">
                     <rect key="frame" x="0.0" y="0.0" width="131" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
