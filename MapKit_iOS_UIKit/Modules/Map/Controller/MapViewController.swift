@@ -452,7 +452,7 @@ extension MapViewController: UIScrollViewDelegate {
 		_ scrollView: UIScrollView,
 		willDecelerate decelerate: Bool
 	) {
-		
+		magnetTableView()
 	}
 }
 
