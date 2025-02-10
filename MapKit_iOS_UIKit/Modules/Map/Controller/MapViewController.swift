@@ -442,6 +442,13 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
+// MARK: - ScrollView Delegate
+extension MapViewController: UIScrollViewDelegate {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		
+	}
+}
+
 // MARK: - Factory Method
 extension MapViewController {
 	static func get(viewModel: Value) -> UIViewController {
