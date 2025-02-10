@@ -68,6 +68,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 		/// delegate setup
 		tableView.delegate = self
 		tableView.dataSource = self
+		tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 100, right: 0)
 		mapView.delegate = self
 		
 		setupLocationManager()
