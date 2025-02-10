@@ -447,6 +447,13 @@ extension MapViewController: UIScrollViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		
 	}
+	
+	func scrollViewDidEndDragging(
+		_ scrollView: UIScrollView,
+		willDecelerate decelerate: Bool
+	) {
+		
+	}
 }
 
 // MARK: - Factory Method
