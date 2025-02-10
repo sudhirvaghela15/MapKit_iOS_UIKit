@@ -68,6 +68,7 @@ class MapViewController: BaseViewController<MapViewModel> {
 		/// delegate setup
 		tableView.delegate = self
 		tableView.dataSource = self
+		
 		tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 100, right: 0)
 		mapView.delegate = self
 		
@@ -445,7 +446,10 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ScrollView Delegate
 extension MapViewController: UIScrollViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		
+		if (scrollView.contentOffset.y < 0) || (scrollView.contentSize.height <= scrollView.frame.size.height) {
+			movableViewTopToMapViewBottom.constant -= scrollView.contentOffset.y
+			scrollView.contentOffset = CGPoint.zero
+		}
 	}
 	
 	func scrollViewDidEndDragging(

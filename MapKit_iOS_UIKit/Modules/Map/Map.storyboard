@@ -141,6 +141,7 @@
                 <tapGestureRecognizer id="D2j-CY-8Rg">
                     <connections>
                         <action selector="tapGestureRecognizerDidPressed:" destination="Y6W-OH-hqX" id="lAD-sx-vp4"/>
+                        <outlet property="delegate" destination="Y6W-OH-hqX" id="emo-Rd-NHr"/>
                     </connections>
                 </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="zhL-Va-kca">
