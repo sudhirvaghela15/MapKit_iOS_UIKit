@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wu9-jN-8vQ">
-                                <rect key="frame" x="174.66666666666666" y="732" width="44" height="3"/>
+                                <rect key="frame" x="174.66666666666666" y="712" width="44" height="3"/>
                                 <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="3" id="9Tt-N7-v7w"/>
@@ -28,7 +28,7 @@
                                 </constraints>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mo-fP-R2j">
-                                <rect key="frame" x="0.0" y="738" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="718" width="393" height="759"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Hd4-9x-mb3">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                             <constraint firstItem="0mo-fP-R2j" firstAttribute="height" secondItem="IdD-KX-zgU" secondAttribute="height" id="NUa-lB-fmT"/>
                             <constraint firstItem="IdD-KX-zgU" firstAttribute="trailing" secondItem="0mo-fP-R2j" secondAttribute="trailing" id="PC9-ca-PZO"/>
                             <constraint firstItem="gUN-Hb-sEE" firstAttribute="top" secondItem="IdD-KX-zgU" secondAttribute="top" id="QDe-6B-Ntq"/>
-                            <constraint firstItem="0mo-fP-R2j" firstAttribute="top" secondItem="gUN-Hb-sEE" secondAttribute="bottom" constant="-80" id="ZRF-9C-i6J"/>
+                            <constraint firstItem="0mo-fP-R2j" firstAttribute="top" secondItem="gUN-Hb-sEE" secondAttribute="bottom" constant="-100" id="ZRF-9C-i6J"/>
                             <constraint firstItem="Wu9-jN-8vQ" firstAttribute="centerX" secondItem="0mo-fP-R2j" secondAttribute="centerX" id="fbg-a8-eMn"/>
                             <constraint firstItem="0mo-fP-R2j" firstAttribute="top" secondItem="Wu9-jN-8vQ" secondAttribute="bottom" constant="3" id="g3R-1s-Fif"/>
                             <constraint firstItem="0mo-fP-R2j" firstAttribute="leading" secondItem="IdD-KX-zgU" secondAttribute="leading" id="ldo-Ql-4zV"/>
@@ -141,6 +141,7 @@
                 <tapGestureRecognizer id="D2j-CY-8Rg">
                     <connections>
                         <action selector="tapGestureRecognizerDidPressed:" destination="Y6W-OH-hqX" id="lAD-sx-vp4"/>
+                        <outlet property="delegate" destination="Y6W-OH-hqX" id="emo-Rd-NHr"/>
                     </connections>
                 </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="zhL-Va-kca">
