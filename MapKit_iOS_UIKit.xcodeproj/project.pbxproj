@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F23485342D5E82A200C1B74D /* DataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23485312D5E82A200C1B74D /* DataManagerTest.swift */; };
 		F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */; };
 		F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */; };
 		F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE532CF33D8F0004EF05 /* ViewController.swift */; };
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F23485312D5E82A200C1B74D /* DataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTest.swift; sourceTree = "<group>"; };
+		F23485322D5E82A200C1B74D /* MapKit_iOS_UIKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapKit_iOS_UIKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F2A250DC2D5E708F002CCAD1 /* MapKit_iOS_UIKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapKit_iOS_UIKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A8EDA62CF3238F0004EF05 /* MapKit_iOS_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKit_iOS_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,14 +82,6 @@
 		F2F479F82D529E7A00CE530F /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F2A250DD2D5E708F002CCAD1 /* MapKit_iOS_UIKitTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MapKit_iOS_UIKitTests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		F2A250D92D5E708F002CCAD1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -105,11 +100,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F23485332D5E82A200C1B74D /* MapKit_iOS_UIKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				F23485312D5E82A200C1B74D /* DataManagerTest.swift */,
+				F23485322D5E82A200C1B74D /* MapKit_iOS_UIKitTests-Bridging-Header.h */,
+			);
+			path = MapKit_iOS_UIKitTests;
+			sourceTree = "<group>";
+		};
 		F2A8ED9D2CF3238F0004EF05 = {
 			isa = PBXGroup;
 			children = (
 				F2A8EE632CF33D8F0004EF05 /* MapKit_iOS_UIKit */,
-				F2A250DD2D5E708F002CCAD1 /* MapKit_iOS_UIKitTests */,
+				F23485332D5E82A200C1B74D /* MapKit_iOS_UIKitTests */,
 				F2A8EDA72CF3238F0004EF05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -302,9 +306,6 @@
 			dependencies = (
 				F2A250E12D5E708F002CCAD1 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F2A250DD2D5E708F002CCAD1 /* MapKit_iOS_UIKitTests */,
-			);
 			name = MapKit_iOS_UIKitTests;
 			packageProductDependencies = (
 			);
@@ -397,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F23485342D5E82A200C1B74D /* DataManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
