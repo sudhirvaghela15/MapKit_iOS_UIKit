@@ -6,10 +6,22 @@
 //
 
 import Foundation
+import MapKit
 
 class DataManager {
+	typealias DirectionFetcher = (
+		SCPlacemark,
+		SCPlacemark,
+		@escaping (_ result: Result<[MKRoute], Error>) -> ()
+	) -> Void
 	
 	static let shared = DataManager()
+	
+	private let directionFetcher: DirectionFetcher
+	
+	init(directionFetcher: @escaping DirectionFetcher = MapMananger.calculateDirections) {
+		self.directionFetcher = directionFetcher
+	}
 }
 
 // MARK: - Direction
@@ -64,10 +76,10 @@ extension DataManager {
 					let semaphore = DispatchSemaphore(value: 0)
 					let source = userPlacemark
 					let destination = placemark
-					MapMananger.calculateDirections(from: userPlacemark, to: placemark, completion: { (status) in
+					self.directionFetcher(userPlacemark, placemark, { (status) in
 						switch status {
-						case .success(let response):
-							let directions = DirectionModel(source: source, destination: destination, routes: response.routes)
+						case .success(let routes):
+							let directions = DirectionModel(source: source, destination: destination, routes: routes)
 							directionsModels.append(directions)
 						case .failure(let error):
 							completeBlock(.failure(error))
@@ -90,12 +102,12 @@ extension DataManager {
 					let destination = tuple.1
 					let blockOperation = BlockOperation(block: {
 						let semaphore = DispatchSemaphore(value: 0)
-						MapMananger.calculateDirections(from: source, to: destination, completion: { (state) in
+						self.directionFetcher(source, destination, { (state) in
 							switch state {
 							case .failure(let error):
 								completeBlock(.failure(error))
-							case .success(let response):
-								let directions = DirectionModel(source: source, destination: destination, routes: response.routes)
+							case .success(let routes):
+								let directions = DirectionModel(source: source, destination: destination, routes: routes)
 								directionsModels.append(directions)
 							}
 							semaphore.signal()
