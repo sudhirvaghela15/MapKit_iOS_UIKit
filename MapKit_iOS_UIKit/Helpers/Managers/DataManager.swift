@@ -79,7 +79,11 @@ extension DataManager {
 				callbackFinishOperation.addDependency(blockOperation)
 				queue.addOperation(blockOperation)
 			}
-			
+				/// current -> newPlacemark
+				/// old1 -> newPlacemark
+				/// newPlacemark -> old1
+				/// old2 -> newPlacemark
+				/// newPlacemark -> old2
 			for oldPlacemark in placemarks {
 				for tuple in [(oldPlacemark, placemark), (placemark, oldPlacemark)] {
 					let source = tuple.0
