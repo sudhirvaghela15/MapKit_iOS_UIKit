@@ -33,27 +33,25 @@ class MapViewController: BaseViewController<MapViewModel> {
 		}
 	}
 	
-	private let heightOfUnit: CGFloat = 44.0
-
-	private var switchOnConstantOfMovableView: CGFloat {
-		return -((mapView.bounds.height / 2) - heightOfUnit)
-	}
-	
-	private func leftBarButtonItem() -> UIBarButtonItem {
-		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
-	}
-
-	private var switchOffConstantOfMovableView: CGFloat {
-		return -heightOfUnit * 2
-	}
-	
 	// AddressResultTableViewController
 	private lazy var searchController = makeSearchController()
+	
 	private lazy var addressResultTableViewController = AddressResultTableViewController.get()
 
 	//locationManager
 	private let locationManager = CLLocationManager()
+	
 	private var shouldUpdateLocation = true
+	
+	private let heightOfUnit: CGFloat = 44.0
+
+	private var switchOnConstantOfMovableView: CGFloat {
+		return -(mapView.bounds.height - heightOfUnit)
+	}
+	
+	private var switchOffConstantOfMovableView: CGFloat {
+		return -heightOfUnit * 2
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -68,8 +66,6 @@ class MapViewController: BaseViewController<MapViewModel> {
 		/// delegate setup
 		tableView.delegate = self
 		tableView.dataSource = self
-		
-		tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 100, right: 0)
 		mapView.delegate = self
 		
 		setupLocationManager()
@@ -82,7 +78,8 @@ class MapViewController: BaseViewController<MapViewModel> {
 
 	}
 	
-	private func initObservers() {
+	private
+	func initObservers() {
 		
 		viewModel.placemarks.bind { [weak self] placemarks in
 			guard let self else { return }
@@ -112,44 +109,47 @@ class MapViewController: BaseViewController<MapViewModel> {
 		}
 		
 		viewModel.didUpdateUserPlacemark.bind(listener: { [weak self] (newValue, oldValue) in
-			guard let self else { return }
-				guard oldValue != newValue else {
-				return
-			}
+			guard let self, oldValue != newValue  else { return }
 			tableView.reloadSections([SectionType.source.rawValue], with: .automatic)
 		})
 		
 		viewModel.shouldShowTableView.bind(listener: { [weak self] value in
 			guard let self else { return }
-			if value {
-				openMovableView()
-			} else {
-				closeMovableView()
-			}
+			(value ? openMovableView : closeMovableView)()
 		})
 	}
 	
-	private func setupLocationManager() {
+	private
+	func leftBarButtonItem() -> UIBarButtonItem {
+		return tableView.isEditing ? barButtonItemDone : barButtonItemEdit
+	}
+	
+	private
+	func setupLocationManager() {
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
 		locationManager.requestWhenInUseAuthorization()
 		locationManager.requestLocation()
 	}
+	
+	private
+	func layoutMovableView() {
+		movableView.layer.cornerRadius = 22.0
+		movableView.layer.masksToBounds = true
+		constriantOfMovableViewHeight.constant = view.frame.height
+	}
 }
 
 	// MARK: - Movable View's code
 extension MapViewController {
-	func layoutMovableView() {
-		movableView.layer.cornerRadius = 22.0
-		movableView.layer.masksToBounds = true
-		constriantOfMovableViewHeight.constant = view.frame.height / 2
+	
+	@IBAction private
+	func tapGestureRecognizerDidPressed(_ sender: UITapGestureRecognizer) {
+		viewModel.shouldShowTableView.value = !viewModel.shouldShowTableView.value
 	}
 	
-	@IBAction func tapGestureRecognizerDidPressed(_ sender: UITapGestureRecognizer) {
-		viewModel.shouldShowTableView.value.toggle()
-	}
-	
-	@IBAction func panGestureRecognizerDidPressed(_ sender: UIPanGestureRecognizer) {
+	@IBAction private
+	func panGestureRecognizerDidPressed(_ sender: UIPanGestureRecognizer) {
 		let touchPoint = sender.location(in: mapView)
 		switch sender.state {
 			case .began:
@@ -158,17 +158,25 @@ extension MapViewController {
 				movableViewTopToMapViewBottom.constant = -(mapView.bounds.height - touchPoint.y)
 			case .ended, .failed, .cancelled:
 				magnetTableView()
+				break
 			default:
 				break
 		}
 	}
 	
-	@IBAction func leftBarButtonItemDidPressed(_ sender: Any) {
+	@IBAction private
+	func leftBarButtonItemDidPressed(_ sender: Any) {
 		tableView.setEditing(!tableView.isEditing, animated: true)
 		perform(#selector(layoutLeftBarButtonItem), with: nil, afterDelay: 0.25)
 	}
 	
-	@objc
+	@IBAction private
+	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+		cprint(sender.selectedSegmentIndex)
+		
+	}
+	
+	@objc private
 	func layoutLeftBarButtonItem() {
 		func frameOfSegmentedControl(frame: CGRect, superframe: CGRect) -> CGRect {
 			var newframe = frame
@@ -191,24 +199,7 @@ extension MapViewController {
 			)
 	}
 	
-	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-		cprint(sender.selectedSegmentIndex)
-		
-	}
-	
-	
-	func  magnetTableView() {
-		let buffer = self.toolbar.bounds.height
-		
-		if viewModel.shouldShowTableView.value {
-			let shouldHide = (movableViewTopToMapViewBottom.constant > (switchOnConstantOfMovableView + buffer))
-			viewModel.shouldShowTableView.value = !shouldHide
-		} else {
-			let shouldShow = (movableViewTopToMapViewBottom.constant < (switchOffConstantOfMovableView - buffer))
-			viewModel.shouldShowTableView.value = shouldShow
-		}
-	}
-	
+	private
 	func openMovableView() {
 		UIView.animate(withDuration: 0.25) {
 			self.movableViewTopToMapViewBottom.constant = self.switchOnConstantOfMovableView
@@ -216,10 +207,24 @@ extension MapViewController {
 		}
 	}
 	
+	private
 	func closeMovableView() {
 		UIView.animate(withDuration: 0.25) {
 			self.movableViewTopToMapViewBottom.constant = self.switchOffConstantOfMovableView
 			self.view.layoutIfNeeded()
+		}
+	}
+	
+	private
+	func magnetTableView() {
+		let buffer = self.toolbar.bounds.height // 44
+		
+		if viewModel.shouldShowTableView.value {
+			let shouldHide = (movableViewTopToMapViewBottom.constant > (switchOnConstantOfMovableView + buffer))
+			viewModel.shouldShowTableView.value = !shouldHide
+		} else {
+			let shouldShow = (movableViewTopToMapViewBottom.constant < (switchOffConstantOfMovableView - buffer))
+			viewModel.shouldShowTableView.value = shouldShow
 		}
 	}
 }
@@ -447,16 +452,22 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 extension MapViewController: UIScrollViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		if (scrollView.contentOffset.y < 0) || (scrollView.contentSize.height <= scrollView.frame.size.height) {
-			movableViewTopToMapViewBottom.constant -= scrollView.contentOffset.y
+			movableViewTopToMapViewBottom.constant -= scrollView.contentOffset.y 
+			cprint(movableViewTopToMapViewBottom.constant)
 			scrollView.contentOffset = CGPoint.zero
 		}
 	}
 	
-	func scrollViewDidEndDragging(
-		_ scrollView: UIScrollView,
-		willDecelerate decelerate: Bool
-	) {
-		magnetTableView()
+	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+		 magnetTableView()
+	}
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension MapViewController: UIGestureRecognizerDelegate {
+	
+	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+		return !tableView.frame.contains(touch.location(in: movableView))
 	}
 }
 
