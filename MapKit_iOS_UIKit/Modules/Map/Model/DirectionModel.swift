@@ -1,6 +1,6 @@
 import MapKit
 
-struct DirectionModel: Codable {
+struct DirectionModel: Codable, Equatable {
 	let source: SCPlacemark
 	let destination: SCPlacemark
 	let distance: CLLocationDistance
