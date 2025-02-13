@@ -445,6 +445,30 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 			
 		return cell
 	}
+	
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		guard let type = SectionType(rawValue: indexPath.section) else {
+			return false
+		}
+		switch type {
+		case .result:
+			return false
+		case .source:
+			return false
+		case .destination:
+			return true
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+		return .delete
+	}
+	
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
+			viewModel.deletePlacemark(at: indexPath.row)
+		}
+	}
 
 }
 

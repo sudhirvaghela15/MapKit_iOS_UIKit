@@ -109,6 +109,17 @@ class MapViewModel: BaseViewModel {
 		self.deviceLocation = location
 	}
 	
+	func deletePlacemark(at index: Int) {
+		let placemark = placemarks.value[index]
+		_placemarks.removeAll { (_placemark) -> Bool in
+			return _placemark == placemark
+		}
+		tourModels = showResultCalculate(
+			statAt: userPlacemark,
+			desitinations: _placemarks
+		)
+	}
+	
 	func placemark(at coordinate: CLLocationCoordinate2D) -> SCPlacemark? {
 		return _placemarks.first { (placemark) -> Bool in
 			return placemark.coordinate.latitude == coordinate.latitude &&
