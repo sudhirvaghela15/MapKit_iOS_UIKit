@@ -141,4 +141,24 @@ final class DataManagerTest: XCTestCase {
 				}
 		wait(for: [exp], timeout: 0.1)
 	}
+	
+	func test_fetchDirections_completsOnMainThread () {
+		
+		let sut = DataManager { source, destination, completion in
+			DispatchQueue.global().async {
+				completion(.success([MKRoute()]))
+			}
+		}
+		
+		let exp = expectation(description: "Wait for fetch completion")
+		exp.expectedFulfillmentCount = 1
+		sut.fetchDirections(
+				ofNew: SCPlacemark(),
+				toOld: [SCPlacemark()],
+				current: nil) { result in 
+					XCTAssertTrue(Thread.isMainThread)
+					exp.fulfill()
+				}
+		wait(for: [exp], timeout: 0.1)
+	}
 }
