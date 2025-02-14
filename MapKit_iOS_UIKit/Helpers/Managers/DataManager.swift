@@ -64,58 +64,56 @@ extension DataManager {
 		current userPlacemark: SCPlacemark?,
 		completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
 		
-		DispatchQueue.global().async {
 			
-			let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
-			
-			var error: Error?
-			
-			var directionsModels = [DirectionModel]()
-			
-			var jorneys = [(source: SCPlacemark, destination: SCPlacemark)]()
-			
-			if let userPlacemark = userPlacemark {
-				jorneys.append((userPlacemark, placemark))
-			}
-			
-			for oldPlacemark in placemarks {
-				jorneys.append((oldPlacemark, placemark))
-				jorneys.append((placemark, oldPlacemark))
-			}
-			
-			let group = DispatchGroup()
-			 
-			for (source, destination) in jorneys {
-				group.enter()
-				self.directionFetcher(source, destination, { (state) in
-					switch state {
-						case .failure(let _error):
-							syncQueue.sync {
-								error = _error
-							}
-						case .success(let routes):
-							let directions = DirectionModel(source: source, destination: destination, routes: routes)
-							syncQueue.sync {
-								directionsModels.append(directions)
-							}
-					}
-					group.leave()
-				})
-				
-//				group.wait() /// if we put wait over here then it will work serially
-			}
-			
-			group.wait() /// if we put wait over here then it will work concurrently
-			
-			DispatchQueue.main.async {
-				if let error = error {
-					completeBlock(.failure(error))
-				} else {
-					completeBlock(.success(directionsModels))
-				}
-			}
-			
+		let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
+		
+		var error: Error?
+		
+		var directionsModels = [DirectionModel]()
+		
+		var jorneys = [(source: SCPlacemark, destination: SCPlacemark)]()
+		
+		if let userPlacemark = userPlacemark {
+			jorneys.append((userPlacemark, placemark))
 		}
+		
+		for oldPlacemark in placemarks {
+			jorneys.append((oldPlacemark, placemark))
+			jorneys.append((placemark, oldPlacemark))
+		}
+		
+		let group = DispatchGroup()
+		 
+		for (source, destination) in jorneys {
+			group.enter()
+			self.directionFetcher(source, destination, { (state) in
+				switch state {
+					case .failure(let _error):
+						syncQueue.sync {
+							error = _error
+						}
+					case .success(let routes):
+						let directions = DirectionModel(source: source, destination: destination, routes: routes)
+						syncQueue.sync {
+							directionsModels.append(directions)
+						}
+				}
+				group.leave()
+			})
+			
+//			group.wait() /// if we put wait over here then it will work serially
+		}
+//			group.wait()   /// if we put wait over here then it will work concurrently
+			
+		/// using notify becasue wait function will block main thread and that will create dead lock i
+		group.notify(queue: .main) {
+			if let error = error {
+				completeBlock(.failure(error))
+			} else {
+				completeBlock(.success(directionsModels))
+			}
+		}
+			
 	}
 }
 
