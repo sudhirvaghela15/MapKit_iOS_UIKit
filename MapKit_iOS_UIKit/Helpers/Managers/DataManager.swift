@@ -67,8 +67,9 @@ extension DataManager {
 		DispatchQueue.global().async {
 			
 			let queue = OperationQueue()
-			queue.maxConcurrentOperationCount = 1 
 			queue.name = "Fetch diretcions of placemarks"
+			
+			let  directionsModelsQueue = DispatchQueue(label: "Preventing Array Data Race")
 			
 			var directionsModels = [DirectionModel]()
 			let callbackFinishOperation = BlockOperation {
@@ -97,7 +98,9 @@ extension DataManager {
 								completeBlock(.failure(error))
 							case .success(let routes):
 								let directions = DirectionModel(source: source, destination: destination, routes: routes)
-								directionsModels.append(directions)
+									directionsModelsQueue.sync {
+										directionsModels.append(directions)
+									}
 							}
 							semaphore.signal()
 						})
