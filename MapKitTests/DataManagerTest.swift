@@ -82,9 +82,35 @@ final class DataManagerTest: XCTestCase {
 						case .failure(let failure):
 							XCTFail("Fail with error:  \(failure)")
 					}
-					
+ 
 					exp.fulfill()
 				}
 		wait(for: [exp], timeout: 0.5)
+	}
+	
+	
+	func test_fetchDirections_failsWhenAtLeastOneRequestFail() {
+		
+		let sut = DataManager { source, destination, completion in
+			completion(.failure(NSError(domain: "Any", code: 0)))
+		}
+		
+		let exp = expectation(description: "Wait for fetch completion")
+		exp.expectedFulfillmentCount = 1
+		sut.fetchDirections(
+				ofNew: SCPlacemark(),
+				toOld: [SCPlacemark()],
+				current: nil) { result in
+					 
+					switch result {
+						case .success:
+							XCTFail("Should have fail but succeeded")
+							
+						case .failure: break
+					}
+					
+					exp.fulfill()
+				}
+		wait(for: [exp], timeout: 0.1)
 	}
 }
