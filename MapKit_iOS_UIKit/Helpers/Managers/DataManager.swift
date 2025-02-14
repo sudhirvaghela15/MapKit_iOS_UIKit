@@ -66,24 +66,11 @@ extension DataManager {
 		
 		DispatchQueue.global().async {
 			
-			let queue = OperationQueue()
-			queue.name = "Fetch diretcions of placemarks"
-			
 			let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
 			
 			var error: Error?
 			
 			var directionsModels = [DirectionModel]()
-			
-			let callbackFinishOperation = BlockOperation {
-				DispatchQueue.main.async {
-					if let error = error {
-						completeBlock(.failure(error))
-					} else {
-						completeBlock(.success(directionsModels))
-					}
-				}
-			}
 			
 			var jorneys = [(source: SCPlacemark, destination: SCPlacemark)]()
 			
@@ -95,32 +82,39 @@ extension DataManager {
 				jorneys.append((oldPlacemark, placemark))
 				jorneys.append((placemark, oldPlacemark))
 			}
+			
+			let group = DispatchGroup()
 			 
 			for (source, destination) in jorneys {
-					let blockOperation = BlockOperation(block: {
-						let semaphore = DispatchSemaphore(value: 0)
-						self.directionFetcher(source, destination, { (state) in
-							switch state {
-							case .failure(let _error):
-								syncQueue.sync {
-									error = _error
-								}
-							case .success(let routes):
-								let directions = DirectionModel(source: source, destination: destination, routes: routes)
-								syncQueue.sync {
-									directionsModels.append(directions)
-								}
+				group.enter()
+				self.directionFetcher(source, destination, { (state) in
+					switch state {
+						case .failure(let _error):
+							syncQueue.sync {
+								error = _error
 							}
-							semaphore.signal()
-						})
-						semaphore.wait()
-					})
-					
-					callbackFinishOperation.addDependency(blockOperation)
-					queue.addOperation(blockOperation)
+						case .success(let routes):
+							let directions = DirectionModel(source: source, destination: destination, routes: routes)
+							syncQueue.sync {
+								directionsModels.append(directions)
+							}
+					}
+					group.leave()
+				})
+				
+//				group.wait() /// if we put wait over here then it will work serially
 			}
-			queue.addOperation(callbackFinishOperation)
-			queue.waitUntilAllOperationsAreFinished()
+			
+			group.wait() /// if we put wait over here then it will work concurrently
+			
+			DispatchQueue.main.async {
+				if let error = error {
+					completeBlock(.failure(error))
+				} else {
+					completeBlock(.success(directionsModels))
+				}
+			}
+			
 		}
 	}
 }
