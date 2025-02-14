@@ -58,10 +58,16 @@ extension DataManager {
 		return "\(source.coordinate.latitude),\(source.coordinate.longitude) - \(destination.coordinate.latitude),\(destination.coordinate.longitude)"
 	}
 	
-	func fetchDirections(ofNew placemark: SCPlacemark, toOld placemarks: [SCPlacemark], current userPlacemark: SCPlacemark?, completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
+	func fetchDirections(
+		ofNew placemark: SCPlacemark,
+		toOld placemarks: [SCPlacemark],
+		current userPlacemark: SCPlacemark?,
+		completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
+		
 		DispatchQueue.global().async {
 			
 			let queue = OperationQueue()
+			queue.maxConcurrentOperationCount = 1 
 			queue.name = "Fetch diretcions of placemarks"
 			
 			var directionsModels = [DirectionModel]()
@@ -71,35 +77,18 @@ extension DataManager {
 				}
 			}
 			
+			var jorneys = [(source: SCPlacemark, destination: SCPlacemark)]()
+			
 			if let userPlacemark = userPlacemark {
-				let blockOperation = BlockOperation(block: {
-					let semaphore = DispatchSemaphore(value: 0)
-					let source = userPlacemark
-					let destination = placemark
-					self.directionFetcher(userPlacemark, placemark, { (status) in
-						switch status {
-						case .success(let routes):
-							let directions = DirectionModel(source: source, destination: destination, routes: routes)
-							directionsModels.append(directions)
-						case .failure(let error):
-							completeBlock(.failure(error))
-						}
-						semaphore.signal()
-					})
-					semaphore.wait()
-				})
-				callbackFinishOperation.addDependency(blockOperation)
-				queue.addOperation(blockOperation)
+				jorneys.append((userPlacemark, placemark))
 			}
-				/// current -> newPlacemark
-				/// old1 -> newPlacemark
-				/// newPlacemark -> old1
-				/// old2 -> newPlacemark
-				/// newPlacemark -> old2
+			
 			for oldPlacemark in placemarks {
-				for tuple in [(oldPlacemark, placemark), (placemark, oldPlacemark)] {
-					let source = tuple.0
-					let destination = tuple.1
+				jorneys.append((oldPlacemark, placemark))
+				jorneys.append((placemark, oldPlacemark))
+			}
+			 
+			for (source, destination) in jorneys {
 					let blockOperation = BlockOperation(block: {
 						let semaphore = DispatchSemaphore(value: 0)
 						self.directionFetcher(source, destination, { (state) in
@@ -117,7 +106,6 @@ extension DataManager {
 					
 					callbackFinishOperation.addDependency(blockOperation)
 					queue.addOperation(blockOperation)
-				}
 			}
 			queue.addOperation(callbackFinishOperation)
 			queue.waitUntilAllOperationsAreFinished()
