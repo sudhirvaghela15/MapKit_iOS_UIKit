@@ -61,7 +61,6 @@ final class DataManagerTest: XCTestCase {
 				toOld: [oldToNewPlacemarkDirection1.source,
 						oldToNewPlacemarkDirection2.source],
 				current: currentToNewPlacemarkDirection.source) { result in
-					exp.fulfill()
 					
 					switch result {
 						case .success(let directions):
@@ -83,6 +82,8 @@ final class DataManagerTest: XCTestCase {
 						case .failure(let failure):
 							XCTFail("Fail with error:  \(failure)")
 					}
+					
+					exp.fulfill()
 				}
 		wait(for: [exp], timeout: 0.5)
 	}
