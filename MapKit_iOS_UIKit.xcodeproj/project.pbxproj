@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F27264322D607D4F0076B963 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27264312D607D4F0076B963 /* LoadingView.swift */; };
+		F27264332D607D4F0076B963 /* LoaderExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27264302D607D4F0076B963 /* LoaderExt.swift */; };
 		F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */; };
 		F2A8EE652CF33D8F0004EF05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */; };
 		F2A8EE662CF33D8F0004EF05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A8EE532CF33D8F0004EF05 /* ViewController.swift */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		F24503552D5FD9C900FD28E3 /* MapKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F272642F2D6078B00076B963 /* MapKit_iOS_UIKit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapKit_iOS_UIKit.xctestplan; sourceTree = "<group>"; };
+		F27264302D607D4F0076B963 /* LoaderExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderExt.swift; sourceTree = "<group>"; };
+		F27264312D607D4F0076B963 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F2A8EDA62CF3238F0004EF05 /* MapKit_iOS_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKit_iOS_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A8EE4E2CF33D8F0004EF05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2A8EE4F2CF33D8F0004EF05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F27264342D607D540076B963 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				F27264302D607D4F0076B963 /* LoaderExt.swift */,
+				F27264312D607D4F0076B963 /* LoadingView.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
 		F2A8ED9D2CF3238F0004EF05 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +238,7 @@
 		F2A8EE5D2CF33D8F0004EF05 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F27264342D607D540076B963 /* Loader */,
 				F2A8EE572CF33D8F0004EF05 /* Base */,
 				F2A8EEF02CF4FB410004EF05 /* Address */,
 				F2A8EE5C2CF33D8F0004EF05 /* Map */,
@@ -412,6 +426,8 @@
 				F2A8EE722CF340B80004EF05 /* MapViewController.swift in Sources */,
 				F2A8EEE92CF38ED90004EF05 /* SCPlacemark.swift in Sources */,
 				F2A8EE642CF33D8F0004EF05 /* AppDelegate.swift in Sources */,
+				F27264322D607D4F0076B963 /* LoadingView.swift in Sources */,
+				F27264332D607D4F0076B963 /* LoaderExt.swift in Sources */,
 				F2D9364C2D53F6EC00927840 /* TourModel.swift in Sources */,
 				F2D9364E2D53F6F800927840 /* AlgorithmManager.swift in Sources */,
 				F2F479F92D529E7A00CE530F /* Helper.swift in Sources */,

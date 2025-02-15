@@ -41,8 +41,8 @@ class BaseViewController<VM: ViewModel>: UIViewController, ViewController {
 	}
 
 	func setupBindings() {
-		viewModel.isLoadingPublisher.bind { [weak self] isLoading in
-			debugPrint("isLoading \(isLoading)")
+		viewModel.isLoadingPublisher.bind { isLoading in
+			(cprint("Loading", isLoading) ? LoadingView.showLoadingView : LoadingView.hideLoadingView)()
 		}
 
 		viewModel.errorPublisher?.bind { [weak self] error in
