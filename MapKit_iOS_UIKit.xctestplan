@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "6B855B9F-8993-475B-9D9B-2A10341B69ED",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MapKit_iOS_UIKit.xcodeproj",
+      "identifier" : "F2A8EDA52CF3238F0004EF05",
+      "name" : "MapKit_iOS_UIKit"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:MapKit_iOS_UIKit.xcodeproj",
+        "identifier" : "F24503542D5FD9C900FD28E3",
+        "name" : "MapKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

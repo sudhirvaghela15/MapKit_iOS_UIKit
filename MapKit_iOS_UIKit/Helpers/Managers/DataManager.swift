@@ -65,13 +65,6 @@ extension DataManager {
 		current userPlacemark: SCPlacemark?,
 		completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
 		
-			
-		let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
-		
-		var error: Error?
-		
-		var directionsModels = [DirectionModel]()
-		
 		var journeys = [Journey]()
 		
 		if let userPlacemark = userPlacemark {
@@ -82,6 +75,13 @@ extension DataManager {
 			journeys.append((oldPlacemark, placemark))
 			journeys.append((placemark, oldPlacemark))
 		}
+		/// concurrent way not good for fetching direction because of if first call got fail but other call are  still progress and  they are not cancelled hec
+		/*
+		let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
+		
+		var error: Error?
+		
+		var directionsModels = [DirectionModel]()
 		
 		let group = DispatchGroup()
 		 
@@ -114,7 +114,43 @@ extension DataManager {
 				completeBlock(.success(directionsModels))
 			}
 		}
+		 */
+		directions(for: journeys, completion: { result in
+			DispatchQueue.main.async {
+				completeBlock(result)
+			}
+		})
 	}
+	
+	/// this will working in Recursively once all journey operation will copmlete it will complete with success and notify to root caller with accumulated destinations array and if  any call got fail it will stop calling recursively and throw failure
+	private func directions(
+		for journeys: [Journey],
+		accumulated: [DirectionModel] = [],
+		completion:  @escaping (Result<[DirectionModel], Error>) -> Void) {
+			guard let (source, destination) = journeys.first else {
+				return completion(.success(accumulated))
+			}
+			
+			self.directionFetcher(source, destination, { (result) in
+				switch result {
+					case .failure(let error):
+						completion(.failure(error))
+						
+					case .success(let routes):
+						let direction = DirectionModel(
+							source: source,
+							destination: destination,
+							routes: routes
+						)
+						
+						self.directions(
+							for: Array(journeys.dropFirst()),
+							accumulated: accumulated + [direction],
+							completion: completion
+						)
+				}
+			})
+		}
 }
 
 // MARK: - Favorite placemark
