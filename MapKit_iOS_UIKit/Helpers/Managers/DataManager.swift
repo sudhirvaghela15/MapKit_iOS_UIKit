@@ -53,76 +53,104 @@ extension DataManager {
 
 // MARK: - SCPlacemark
 extension DataManager {
-
+	private typealias Journey = (source: SCPlacemark, destination: SCPlacemark)
+	
 	private func createKeyBy(source: SCPlacemark, destination: SCPlacemark) -> String {
 		return "\(source.coordinate.latitude),\(source.coordinate.longitude) - \(destination.coordinate.latitude),\(destination.coordinate.longitude)"
 	}
 	
-	func fetchDirections(ofNew placemark: SCPlacemark, toOld placemarks: [SCPlacemark], current userPlacemark: SCPlacemark?, completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
-		DispatchQueue.global().async {
-			
-			let queue = OperationQueue()
-			queue.name = "Fetch diretcions of placemarks"
-			
-			var directionsModels = [DirectionModel]()
-			let callbackFinishOperation = BlockOperation {
-				DispatchQueue.main.async {
-					completeBlock(.success(directionsModels))
-				}
-			}
-			
-			if let userPlacemark = userPlacemark {
-				let blockOperation = BlockOperation(block: {
-					let semaphore = DispatchSemaphore(value: 0)
-					let source = userPlacemark
-					let destination = placemark
-					self.directionFetcher(userPlacemark, placemark, { (status) in
-						switch status {
-						case .success(let routes):
-							let directions = DirectionModel(source: source, destination: destination, routes: routes)
-							directionsModels.append(directions)
-						case .failure(let error):
-							completeBlock(.failure(error))
-						}
-						semaphore.signal()
-					})
-					semaphore.wait()
-				})
-				callbackFinishOperation.addDependency(blockOperation)
-				queue.addOperation(blockOperation)
-			}
-				/// current -> newPlacemark
-				/// old1 -> newPlacemark
-				/// newPlacemark -> old1
-				/// old2 -> newPlacemark
-				/// newPlacemark -> old2
-			for oldPlacemark in placemarks {
-				for tuple in [(oldPlacemark, placemark), (placemark, oldPlacemark)] {
-					let source = tuple.0
-					let destination = tuple.1
-					let blockOperation = BlockOperation(block: {
-						let semaphore = DispatchSemaphore(value: 0)
-						self.directionFetcher(source, destination, { (state) in
-							switch state {
-							case .failure(let error):
-								completeBlock(.failure(error))
-							case .success(let routes):
-								let directions = DirectionModel(source: source, destination: destination, routes: routes)
-								directionsModels.append(directions)
-							}
-							semaphore.signal()
-						})
-						semaphore.wait()
-					})
-					
-					callbackFinishOperation.addDependency(blockOperation)
-					queue.addOperation(blockOperation)
-				}
-			}
-			queue.addOperation(callbackFinishOperation)
-			queue.waitUntilAllOperationsAreFinished()
+	func fetchDirections(
+		ofNew placemark: SCPlacemark,
+		toOld placemarks: [SCPlacemark],
+		current userPlacemark: SCPlacemark?,
+		completeBlock: @escaping (Result<[DirectionModel], Error>)->()) {
+		
+		var journeys = [Journey]()
+		
+		if let userPlacemark = userPlacemark {
+			journeys.append((userPlacemark, placemark))
 		}
+		
+		for oldPlacemark in placemarks {
+			journeys.append((oldPlacemark, placemark))
+			journeys.append((placemark, oldPlacemark))
+		}
+		/// concurrent way not good for fetching direction because of if first call got fail but other call are  still progress and  they are not cancelled hec
+		/*
+		let  syncQueue = DispatchQueue(label: "Queue is Sync mutation")
+		
+		var error: Error?
+		
+		var directionsModels = [DirectionModel]()
+		
+		let group = DispatchGroup()
+		 
+		for (source, destination) in journeys {
+			group.enter()
+			self.directionFetcher(source, destination, { (state) in
+				switch state {
+					case .failure(let _error):
+						syncQueue.sync {
+							error = _error
+						}
+					case .success(let routes):
+						let directions = DirectionModel(source: source, destination: destination, routes: routes)
+						syncQueue.sync {
+							directionsModels.append(directions)
+						}
+				}
+				group.leave()
+			})
+			
+//			group.wait() /// if we put wait over here then it will work serially
+		}
+//			group.wait()   /// if we put wait over here then it will work concurrently
+			
+		/// using notify becasue wait function will block main thread and that will create dead lock i
+		group.notify(queue: .main) {
+			if let error = error {
+				completeBlock(.failure(error))
+			} else {
+				completeBlock(.success(directionsModels))
+			}
+		}
+		 */
+		directions(for: journeys, completion: { result in
+			DispatchQueue.main.async {
+				completeBlock(result)
+			}
+		})
 	}
+	
+	/// this will working in Recursively once all journey operation will copmlete it will complete with success and notify to root caller with accumulated destinations array and if  any call got fail it will stop calling recursively and throw failure
+	private func directions(
+		for journeys: [Journey],
+		accumulated: [DirectionModel] = [],
+		completion:  @escaping (Result<[DirectionModel], Error>) -> Void) {
+			guard let (source, destination) = journeys.first else {
+				return completion(.success(accumulated))
+			}
+			
+			self.directionFetcher(source, destination, { (result) in
+				switch result {
+					case .failure(let error):
+						completion(.failure(error))
+						
+					case .success(let routes):
+						let direction = DirectionModel(
+							source: source,
+							destination: destination,
+							routes: routes
+						)
+						
+						self.directions(
+							for: Array(journeys.dropFirst()),
+							accumulated: accumulated + [direction],
+							completion: completion
+						)
+				}
+			})
+		}
 }
 
 // MARK: - Favorite placemark
