@@ -53,7 +53,8 @@ extension DataManager {
 
 // MARK: - SCPlacemark
 extension DataManager {
-
+	private typealias Journey = (source: SCPlacemark, destination: SCPlacemark)
+	
 	private func createKeyBy(source: SCPlacemark, destination: SCPlacemark) -> String {
 		return "\(source.coordinate.latitude),\(source.coordinate.longitude) - \(destination.coordinate.latitude),\(destination.coordinate.longitude)"
 	}
@@ -71,20 +72,20 @@ extension DataManager {
 		
 		var directionsModels = [DirectionModel]()
 		
-		var jorneys = [(source: SCPlacemark, destination: SCPlacemark)]()
+		var journeys = [Journey]()
 		
 		if let userPlacemark = userPlacemark {
-			jorneys.append((userPlacemark, placemark))
+			journeys.append((userPlacemark, placemark))
 		}
 		
 		for oldPlacemark in placemarks {
-			jorneys.append((oldPlacemark, placemark))
-			jorneys.append((placemark, oldPlacemark))
+			journeys.append((oldPlacemark, placemark))
+			journeys.append((placemark, oldPlacemark))
 		}
 		
 		let group = DispatchGroup()
 		 
-		for (source, destination) in jorneys {
+		for (source, destination) in journeys {
 			group.enter()
 			self.directionFetcher(source, destination, { (state) in
 				switch state {
@@ -113,7 +114,6 @@ extension DataManager {
 				completeBlock(.success(directionsModels))
 			}
 		}
-			
 	}
 }
 
